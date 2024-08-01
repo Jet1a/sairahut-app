@@ -1,8 +1,14 @@
+import React from "react";
+import HomePage from "./pages/home/page";
 
-export default function Home() {
+type Props = {};
+
+const Index = (props: Props) => {
   return (
     <main>
-     <h1>Hello World</h1>
+      <HomePage />
     </main>
   );
-}
+};
+
+export default Index;

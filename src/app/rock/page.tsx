@@ -5,7 +5,7 @@ type Props = {};
 
 const Rock = (props: Props) => {
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center space-y-2">
+    <div className="h-screen w-full flex flex-col items-center justify-center space-y-2 ">
       <RockSection />
     </div>
   );

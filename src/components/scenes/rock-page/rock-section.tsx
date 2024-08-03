@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import rock1 from "../../../../public/images/rock1.png";
-import rock2 from "../../../../public/images/rock2.png";
-import rock3 from "../../../../public/images/rock3.png";
-import rock4 from "../../../../public/images/rock4.png";
+import rock1 from "../../../../public/images/rockgif/p1.gif";
+import rock2 from "../../../../public/images/rockgif/p2.gif";
+import rock3 from "../../../../public/images/rockgif/p3.gif";
+import rock4 from "../../../../public/images/rockgif/p4.gif";
 import jewelry from "../../../../public/images/jewels/emerald.png";
 import styles from "../../../styles/rock.module.css";
 type Props = {};
 const RockSection = (props: Props) => {
-  const [rockImage, setRockImage] = useState(rock1); // Initial image
+  const [rockImage, setRockImage] = useState(rock1);
   const [clickCount, setClickCount] = useState(0);
   const [animate, setAnimate] = useState(false);
   const [showJewelry, setShowJewelry] = useState(false);
@@ -52,7 +52,9 @@ const RockSection = (props: Props) => {
       <div className={styles.fall}>
         {showJewelry ? (
           <div className="flex flex-col gap-4">
-            <h1 className="text-center text-6xl font-bold text-green-500">Emerald</h1>
+            <h1 className="text-center text-6xl font-bold text-green-500">
+              Emerald
+            </h1>
             <Image
               src={jewelry}
               alt="jewelry"
@@ -75,8 +77,16 @@ const RockSection = (props: Props) => {
         )}
       </div>
       <div className="text-center space-y-4">
-        <h1 className="text-6xl font-bold">IT30</h1>
-        <p className="font-semibold">CODE OF UNDER WORLD&apos;S TREASURE</p>
+        <h1
+          className={`text-6xl font-bold ${
+            showJewelry ? "text-green-500" : " "
+          }`}
+        >
+          IT30
+        </h1>
+        <p className={`font-semibold ${showJewelry ? "text-green-500" : " "}`}>
+          CODE OF UNDER WORLD&apos;S TREASURE
+        </p>
       </div>
     </section>
   );

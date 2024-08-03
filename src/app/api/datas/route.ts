@@ -14,8 +14,6 @@ export async function GET(req: NextRequest) {
         private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
       },
       scopes: [
-        'https://www.googleapis.com/auth/drive',
-        'https://www.googleapis.com/auth/drive.file',
         'https://www.googleapis.com/auth/spreadsheets',
       ],
     });
@@ -23,7 +21,7 @@ export async function GET(req: NextRequest) {
     const sheets = google.sheets({ auth, version: 'v4' });
 
 
-    const range = `${encodeURIComponent(slug)}!A1:G10`;
+    const range = 'Sheet1!A2:G';
 
    
     const response = await sheets.spreadsheets.values.get({
@@ -39,11 +37,11 @@ export async function GET(req: NextRequest) {
     }
 
 
-    const filteredData = data.filter(row => row[2] === '');
+    const filteredData = data.filter(row => row[0].slice(-3) === slug);
 
     return NextResponse.json({ data: filteredData }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Something went wrong' }, { status: 500 });
+    return NextResponse.json({ message: 'Something went wronggit branch' }, { status: 500 });
   }
 }

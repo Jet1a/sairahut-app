@@ -14,7 +14,7 @@
 }
 
 .background {
-   background-image: url('../../public/images/dt_bg.png');
+   background-image: url("../../public/images/dt_bg.png");
    background-size: 100% 100%;
    background-position: center;
    background-repeat: no-repeat;
@@ -34,3 +34,4 @@
       background-image: url('../../public/images/sm_bg.png');
    }
 }
+

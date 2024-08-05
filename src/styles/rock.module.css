@@ -23,7 +23,7 @@
 }
 
 .fall {
-   animation: fall 1s ease-in-out;
+   animation: fall .8s ease-in-out;
 }
 
 @keyframes fall {

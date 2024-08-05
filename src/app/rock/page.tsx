@@ -1,13 +1,10 @@
 import RockSection from "@/components/scenes/rock-page/rock-section";
-import React from "react";
-
-type Props = {};
-
-const Rock = (props: Props) => {
+import styles from "@/styles/home.module.css"
+const Rock = () => {
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center space-y-2 ">
+    <main className={styles.background}>
       <RockSection />
-    </div>
+    </main>
   );
 };
 

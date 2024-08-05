@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -51,7 +52,7 @@ const HomeInput = (props: Props) => {
         console.error("Error fetching data:", error);
       });
     console.log(data);
-    router.push("/rock");
+    router.push(`/rock?slug=${data.pin}`);
   };
 
   return (

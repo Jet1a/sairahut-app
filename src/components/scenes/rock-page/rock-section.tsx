@@ -51,6 +51,8 @@ const RockSection = () => {
         setRockImage(rockImages[newImageIndex]);
         setAnimate(true);
         setTimeout(() => setAnimate(false), 200);
+        setAnimate(true);
+        setTimeout(() => setAnimate(false), 200);
       }
 
       return newClickCount;

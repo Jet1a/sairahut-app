@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import rock1 from "../../../../public/images/rockgif/p1.gif";
-import rock2 from "../../../../public/images/rockgif/p2.gif";
-import rock3 from "../../../../public/images/rockgif/p3.gif";
-import rock4 from "../../../../public/images/rockgif/p4.gif";
-import jewelry from "../../../../public/images/jewels/emerald.png";
-import { useRouter } from "next/navigation";
+import rock1 from "../../../../../public/images/rockgif/p1.gif";
+import rock2 from "../../../../../public/images/rockgif/p2.gif";
+import rock3 from "../../../../../public/images/rockgif/p3.gif";
+import rock4 from "../../../../../public/images/rockgif/p4.gif";
+import jewelry from "../../../../../public/images/jewels/emerald.png";
+import { useParams, useRouter } from "next/navigation";
 import styles from "@/styles/rock.module.css"
+import { useSearchParams } from "next/navigation";
 
 const RockSection = () => {
   const [rockImage, setRockImage] = useState(rock1);
@@ -18,11 +19,14 @@ const RockSection = () => {
   const [fadeOut, setFadeOut] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams()
+  const slug = searchParams.get('slug')
 
   const rockImages = [rock1, rock2, rock3, rock4];
   const clickThresholds = [5, 10, 15, 15];
 
   useEffect(() => {
+    
     if (showJewelry) {
       setTimeout(() => {
         router.push("/house");
@@ -30,7 +34,10 @@ const RockSection = () => {
     }
   }, [router,showJewelry]);
 
+  
+
   const handleClick = () => {
+
     setClickCount((prev) => {
       const newClickCount = prev + 1;
       const newImageIndex = clickThresholds.findIndex(
@@ -49,8 +56,6 @@ const RockSection = () => {
         }, 1000);
       } else {
         setRockImage(rockImages[newImageIndex]);
-        setAnimate(true);
-        setTimeout(() => setAnimate(false), 200);
         setAnimate(true);
         setTimeout(() => setAnimate(false), 200);
       }

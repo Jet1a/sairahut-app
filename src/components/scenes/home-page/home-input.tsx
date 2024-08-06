@@ -21,13 +21,11 @@ import {
 } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 
-type Props = {};
-
 const FormSchema = z.object({
   pin: z.string().min(3),
 });
 
-const HomeInput = (props: Props) => {
+const HomeInput = () => {
   const router = useRouter();
   const [studentID, setStudentID] = useState("");
 
@@ -43,7 +41,6 @@ const HomeInput = (props: Props) => {
     fetch(`/api/datas?slug=${data.pin}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         const lastThreeDigits = data?.data?.[0]?.[0]?.slice(-3); 
         setStudentID(lastThreeDigits);
         form.setValue("pin", lastThreeDigits);
@@ -51,7 +48,6 @@ const HomeInput = (props: Props) => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-    console.log(data);
     router.push(`/rock?slug=${data.pin}`);
   };
 

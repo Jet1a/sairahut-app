@@ -2,42 +2,51 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import rock1 from "../../../../../public/images/rockgif/p1.gif";
-import rock2 from "../../../../../public/images/rockgif/p2.gif";
-import rock3 from "../../../../../public/images/rockgif/p3.gif";
-import rock4 from "../../../../../public/images/rockgif/p4.gif";
+import rocks from "@/utils/rock";
 import jewelry from "../../../../../public/images/jewels/emerald.png";
-import { useParams, useRouter } from "next/navigation";
-import styles from "@/styles/rock.module.css"
-import { useSearchParams } from "next/navigation";
+import jewelrys from "@/utils/jewelry";
+import { useSearchParams, useRouter } from "next/navigation";
+import styles from "@/styles/rock.module.css";
 
 const RockSection = () => {
-  const [rockImage, setRockImage] = useState(rock1);
+  const [rockImage, setRockImage] = useState(rocks.rock1);
   const [clickCount, setClickCount] = useState(0);
+  const [jewelColor, setJewelColor] = useState("");
   const [animate, setAnimate] = useState(false);
   const [showJewelry, setShowJewelry] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
   const router = useRouter();
-  const searchParams = useSearchParams()
-  const slug = searchParams.get('slug')
+  const searchParams = useSearchParams();
+  const slug = searchParams.get("slug");
 
-  const rockImages = [rock1, rock2, rock3, rock4];
+  const rockImages = [rocks.rock1, rocks.rock2, rocks.rock3, rocks.rock4];
   const clickThresholds = [5, 10, 15, 15];
 
   useEffect(() => {
-    
     if (showJewelry) {
       setTimeout(() => {
         router.push("/house");
       }, 3000);
     }
-  }, [router,showJewelry]);
-
-  
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/datas?slug=${slug}`);
+        const data = await res.json();
+        if (data.data.length <= 0) {
+          console.error("Data is empty!");
+          router.push("/");
+        }
+        setJewelColor(data.data[0][2]);
+        console.log(data.data[0][2]);
+      } catch (error) {
+        console.error("Error fetching data.", error);
+      }
+    };
+    fetchData();
+  }, [slug, router, showJewelry]);
 
   const handleClick = () => {
-
     setClickCount((prev) => {
       const newClickCount = prev + 1;
       const newImageIndex = clickThresholds.findIndex(
@@ -45,7 +54,7 @@ const RockSection = () => {
       );
 
       if (newImageIndex === -1) {
-        setRockImage(rock4);
+        setRockImage(rocks.rock4);
         setAnimate(true);
         setTimeout(() => {
           setFadeOut(true);
@@ -69,16 +78,23 @@ const RockSection = () => {
       <div className={styles.fall}>
         {showJewelry ? (
           <div className="flex flex-col gap-4 justify-center items-center">
-            <h1 className="text-center text-6xl font-bold text-green-500">
-              Emerald
-            </h1>
-            <Image
-              src={jewelry}
-              alt="jewelry"
-              className={styles.pop}
-              width={250}
-              height={250}
-            />
+            {jewelrys
+              .filter((jewel) => jewel.name === jewelColor)
+              .map((jewel, index) => (
+                <>
+                  <h1 className={`text-center text-6xl font-bold text-${jewel.color}-500 uppercase`}>
+                    {jewel.name}
+                  </h1>
+                  <Image
+                    src={jewel.src}
+                    alt="jewelry"
+                    className={styles.pop}
+                    width={250}
+                    height={250}
+                    key={index}
+                  />
+                </>
+              ))}
           </div>
         ) : (
           <Image
@@ -97,13 +113,11 @@ const RockSection = () => {
       </div>
       <div className="text-center space-y-4">
         <h1
-          className={`text-6xl font-bold ${
-            showJewelry ? "text-green-500" : ""
-          }`}
+          className={`text-6xl font-bold`}
         >
           IT30
         </h1>
-        <p className={`font-semibold ${showJewelry ? "text-green-500" : ""}`}>
+        <p className={`font-semibold`}>
           CODE OF UNDER WORLD&apos;S TREASURE
         </p>
       </div>

@@ -42,6 +42,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ data: filteredData }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Something went wronggit branch' }, { status: 500 });
+    return NextResponse.json({ message: 'Something went wrong git branch' }, { status: 500 });
   }
 }

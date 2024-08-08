@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import rocks from "@/utils/rock";
-import jewelry from "../../../../../public/images/jewels/emerald.png";
 import jewelrys from "@/utils/jewelry";
 import { useSearchParams, useRouter } from "next/navigation";
 import styles from "@/styles/rock.module.css";
+import JewelrySection from "./jewelry-section";
 
 const RockSection = () => {
   const [rockImage, setRockImage] = useState(rocks.rock1);
@@ -40,7 +40,8 @@ const RockSection = () => {
         setJewelColor(data.data[0][2]);
         console.log(data.data[0][2]);
       } catch (error) {
-        console.error("Error fetching data.", error);
+        console.error("Error fetching data!", error);
+        throw new Error("Error fethcing data!")
       }
     };
     fetchData();
@@ -77,23 +78,18 @@ const RockSection = () => {
     <section className="h-screen w-full flex flex-col items-center justify-center space-y-2 ">
       <div className={styles.fall}>
         {showJewelry ? (
-          <div className="flex flex-col gap-4 justify-center items-center">
+          <div
+            className={`${styles.pop} flex flex-col gap-4 justify-center items-center`}
+          >
             {jewelrys
               .filter((jewel) => jewel.name === jewelColor)
               .map((jewel, index) => (
-                <>
-                  <h1 className={`text-center text-6xl font-bold text-${jewel.color}-500 uppercase`}>
-                    {jewel.name}
-                  </h1>
-                  <Image
-                    src={jewel.src}
-                    alt="jewelry"
-                    className={styles.pop}
-                    width={250}
-                    height={250}
-                    key={index}
-                  />
-                </>
+                <JewelrySection
+                  key={index}
+                  name={jewel.name}
+                  src={jewel.src}
+                  color={jewel.color}
+                />
               ))}
           </div>
         ) : (
@@ -112,14 +108,8 @@ const RockSection = () => {
         )}
       </div>
       <div className="text-center space-y-4">
-        <h1
-          className={`text-6xl font-bold`}
-        >
-          IT30
-        </h1>
-        <p className={`font-semibold`}>
-          CODE OF UNDER WORLD&apos;S TREASURE
-        </p>
+        <h1 className={`text-6xl font-bold`}>IT30</h1>
+        <p className={`font-semibold`}>CODE OF UNDER WORLD&apos;S TREASURE</p>
       </div>
     </section>
   );

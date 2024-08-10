@@ -40,7 +40,7 @@ const HomeInput = (props: Props) => {
 
   
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    fetch(`/api/datas?slug=${data.pin}`)
+    fetch(`/api/datas?Id=${data.pin}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -52,7 +52,7 @@ const HomeInput = (props: Props) => {
         console.error("Error fetching data:", error);
       });
     console.log(data);
-    router.push(`/rock?slug=${data.pin}`);
+    router.push(`/rock?Id=${data.pin}`);
   };
 
   return (

@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 
 export async function GET(req: NextRequest) {
-  const slug = req.nextUrl.searchParams.get('slug');
-  if (!slug) {
+  const id = req.nextUrl.searchParams.get('Id');
+  if (!id) {
     return NextResponse.json({ message: 'Slug parameter is missing' }, { status: 400 });
   }
 
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     }
 
 
-    const filteredData = data.filter(row => row[0].slice(-3) === slug);
+    const filteredData = data.filter(row => row[0].slice(-3) === id);
 
     return NextResponse.json({ data: filteredData }, { status: 200 });
   } catch (error) {

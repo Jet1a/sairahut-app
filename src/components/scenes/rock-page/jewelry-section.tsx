@@ -9,7 +9,7 @@ const JewelrySection = ({ name, src, color }: JewelryProps) => {
   return (
     <>
       <h1
-        className={`text-center text-6xl font-bold ${color} uppercase`}
+        className={`text-center text-6xl font-bold uppercase ${color} `}
       >
         {name}
       </h1>

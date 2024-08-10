@@ -26,7 +26,7 @@ const RockSection = () => {
   useEffect(() => {
     if (showJewelry) {
       setTimeout(() => {
-        router.push("/house");
+        router.push(`/house?slug=${slug}`);
       }, 3000);
     }
     const fetchData = async () => {
@@ -41,7 +41,7 @@ const RockSection = () => {
         console.log(data.data[0][2]);
       } catch (error) {
         console.error("Error fetching data!", error);
-        throw new Error("Error fethcing data!")
+        throw new Error("Error fethcing data!");
       }
     };
     fetchData();
@@ -74,6 +74,8 @@ const RockSection = () => {
     });
   };
 
+  const titleColor = jewelrys.find((jewel) => jewel.name === jewelColor)?.color;
+
   return (
     <section className="h-screen w-full flex flex-col items-center justify-center space-y-2 ">
       <div className={styles.fall}>
@@ -102,14 +104,16 @@ const RockSection = () => {
             }`}
             width={300}
             height={300}
-            unoptimized={false}
+            unoptimized={true}
             priority={true}
           />
         )}
       </div>
-      <div className="text-center space-y-4">
-        <h1 className={`text-6xl font-bold`}>IT30</h1>
-        <p className={`font-semibold`}>CODE OF UNDER WORLD&apos;S TREASURE</p>
+      <div className={`text-center space-y-4 ${showJewelry ? titleColor : ""}`}>
+        <h1 className="text-6xl font-bold">IT30</h1>
+        <p className="font-semibold text-2xl">
+          CODE OF UNDER WORLD&apos;S TREASURE
+        </p>
       </div>
     </section>
   );

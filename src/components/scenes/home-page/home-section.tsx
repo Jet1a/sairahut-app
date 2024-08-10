@@ -16,6 +16,7 @@ const HomeSection = () => {
           width={300}
           height={300}
           priority={true}
+          unoptimized={true}
         />
         <div className="text-center space-y-4">
           <h1 className="text-6xl font-bold">IT30</h1>

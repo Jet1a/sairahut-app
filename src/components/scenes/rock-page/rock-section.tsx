@@ -18,7 +18,7 @@ const RockSection = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const slug = searchParams.get("slug");
+  const slug = searchParams.get("Id");
 
   const rockImages = [rocks.rock1, rocks.rock2, rocks.rock3, rocks.rock4];
   const clickThresholds = [5, 10, 15, 15];
@@ -26,12 +26,12 @@ const RockSection = () => {
   useEffect(() => {
     if (showJewelry) {
       setTimeout(() => {
-        router.push(`/house?slug=${slug}`);
+        router.push(`/house?Id=${slug}`);
       }, 3000);
     }
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/datas?slug=${slug}`);
+        const res = await fetch(`/api/datas?Id=${slug}`);
         const data = await res.json();
         if (data.data.length <= 0) {
           console.error("Data is empty!");

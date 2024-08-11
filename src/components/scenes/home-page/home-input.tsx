@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -38,7 +38,7 @@ const HomeInput = () => {
 
   
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    fetch(`/api/datas?slug=${data.pin}`)
+    fetch(`/api/datas?Id=${data.pin}`)
       .then((response) => response.json())
       .then((data) => {
         const lastThreeDigits = data?.data?.[0]?.[0]?.slice(-3); 
@@ -48,7 +48,7 @@ const HomeInput = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-    router.push(`/rock?slug=${data.pin}`);
+    router.push(`/rock?Id=${data.pin}`);
   };
 
   return (

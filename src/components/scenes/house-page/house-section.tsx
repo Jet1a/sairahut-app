@@ -11,12 +11,12 @@ const HouseSection = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
-  const slug = searchParams.get("slug");
+  const slug = searchParams.get("Id");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/datas?slug=${slug}`);
+        const res = await fetch(`/api/datas?Id=${slug}`);
         const data = await res.json();
         setMascot(data.data[0][2]);
       } catch (error) {

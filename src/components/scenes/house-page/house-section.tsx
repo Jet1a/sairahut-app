@@ -36,7 +36,7 @@ const HouseSection = () => {
       className={`${styles.pop} flex flex-col justify-center items-center min-h-screen`}
     >
       {isLoading ? (
-        <div>Loading ...</div>
+        <div>Loading...</div>
       ) : (
         mascots
           .filter((item) => item.name === mascot)

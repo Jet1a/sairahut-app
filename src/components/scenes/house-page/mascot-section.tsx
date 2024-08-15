@@ -8,14 +8,18 @@ interface MascotProps {
 
 const MascotSection = ({ name, src, color }: MascotProps) => {
   return (
-    <>
-      <h1
-        className={`text-center text-6xl font-bold ${color}`}
-      >
-        {name}
-      </h1>
-      <Image src={src} alt="house-mascot" width={350} height={350} priority={true} />
-    </>
+    <div className="flex flex-col items-center justify-center space-y-2">
+      <h1 className={`text-center text-6xl font-bold ${color}`}>{name}</h1>
+      <div className="w-[400px] h-[400px] relative">
+        <Image
+          src={src}
+          alt="house-mascot"
+          fill
+          objectFit="contain"
+          priority={true}
+        />
+      </div>
+    </div>
   );
 };
 

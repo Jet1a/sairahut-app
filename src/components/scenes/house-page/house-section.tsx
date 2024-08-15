@@ -19,6 +19,7 @@ const HouseSection = () => {
         const res = await fetch(`/api/datas?Id=${slug}`);
         const data = await res.json();
         setMascot(data.data[0][2]);
+        console.log(mascots);
       } catch (error) {
         console.error("Error fetching data!", error);
         throw new Error("Error fethcing data!");
@@ -29,31 +30,32 @@ const HouseSection = () => {
     fetchData();
   }, [slug]);
 
-  const titleColor = mascots.find((item) => item.name === mascot)?.color;
-
   return (
     <section
       className={`${styles.pop} flex flex-col justify-center items-center min-h-screen`}
     >
       {isLoading ? (
-        <div>Loading...</div>
+        <div>Devjin Don&apos;t Look!!!</div>
       ) : (
         mascots
           .filter((item) => item.name === mascot)
           .map((mascot, index) => (
-            <MascotSection
-              key={index}
-              name={mascot.name}
-              src={mascot.src}
-              color={mascot.color}
-            />
+            <>
+              <div className="text-center font-bold">
+                <h1
+                  className="text-4xl text-amber-200 text-shadow-glow">
+                  Congratulation!
+                </h1>
+                <p className="mt-2 text-xl">You&apos;ve got</p>
+              </div>
+              <MascotSection
+                key={index}
+                name={mascot.name}
+                src={mascot.src}
+                color={mascot.color}
+              />
+            </>
           ))
-      )}
-      {!isLoading && (
-        <div className={`text-center space-y-4 ${titleColor}`}>
-          <h1 className="text-6xl font-bold">IT30</h1>
-          <p className="font-semibold">CODE OF UNDER WORLD&apos;S TREASURE</p>
-        </div>
       )}
     </section>
   );

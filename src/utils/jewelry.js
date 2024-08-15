@@ -7,12 +7,12 @@ import topaz from "../../public/images/jewels/topaz.png"
 
 
 const jewelry = [
-   { name: 'Emerald', src: emerald, color: "text-green-500" },
-   { name: 'Ruby', src: ruby, color: "text-red-500" },
-   { name: 'Aqua', src: aqua, color: "text-blue-500" },
-   { name: 'Topaz', src: topaz, color: "text-yellow-500" },
-   { name: 'Seraphina', src: seraphina, color: "text-pink-500" },
-   { name: 'Critrine', src: critrine, color: "text-orange-500" },
+   { name: 'Emerald', src: emerald, color: "text-green-400" },
+   { name: 'Ruby', src: ruby, color: "text-red-400" },
+   { name: 'Aqua', src: aqua, color: "text-blue-400" },
+   { name: 'Topaz', src: topaz, color: "text-yellow-400" },
+   { name: 'Seraphina', src: seraphina, color: "text-pink-400" },
+   { name: 'Critrine', src: critrine, color: "text-orange-400" },
 ]
 
 export default jewelry

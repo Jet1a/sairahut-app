@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Mitr } from "next/font/google";
-import "@/styles/globals.css"
-
+import "@/styles/globals.css";
+import { Suspense } from "react";
 
 const mitr = Mitr({
   subsets: ["latin"],
-  weight: ['200', '300', '400', '500', '600', '700']
-})
+  weight: ["200", "300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "IT30 Code of Under World's Treasure",
@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={mitr.className}>{children}</body>
+      <body className={mitr.className}>
+        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+      </body>
     </html>
   );
 }

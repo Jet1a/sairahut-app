@@ -27,8 +27,7 @@ const FormSchema = z.object({
 
 const HomeInput = () => {
   const router = useRouter();
-  const [studentID, setStudentID] = useState("");
-
+  
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -42,7 +41,6 @@ const HomeInput = () => {
       .then((response) => response.json())
       .then((data) => {
         const lastThreeDigits = data?.data?.[0]?.[0]?.slice(-3); 
-        setStudentID(lastThreeDigits);
         form.setValue("pin", lastThreeDigits);
       })
       .catch((error) => {
@@ -63,7 +61,7 @@ const HomeInput = () => {
             name="pin"
             render={({ field }) => (
               <FormItem className="flex flex-col items-center justify-center gap-2">
-                <FormLabel>Please enter last 3 student id digits</FormLabel>
+                <FormLabel>Please enter your last 3 student id digits</FormLabel>
                 <FormControl>
                   <InputOTP maxLength={3} pattern={REGEXP_ONLY_DIGITS} {...field}>
                     <InputOTPGroup className="flex items-center justify-center gap-2">

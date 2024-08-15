@@ -7,9 +7,9 @@ const House = () => {
 
   return (
     <main className={styles.background}>
-      <Suspense fallback={<div>Loading...</div>}>
+    
         <HouseSection />
-      </Suspense>
+
     </main>
   );
 };

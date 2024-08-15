@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import styles from "@/styles/clue.module.css";
 import ClueSection from "@/components/scenes/clue-page/clue-section";
 const Clue = () => {

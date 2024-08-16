@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Mitr } from "next/font/google";
 import "@/styles/globals.css";
 import { Suspense } from "react";
-
-const mitr = Mitr({
+import { Moul } from "next/font/google";
+const mitr = Moul({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {

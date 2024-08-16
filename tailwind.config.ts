@@ -52,6 +52,8 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        rock: "rgba(17, 124, 155, 1)",
+        gold: "rgba(255, 233, 157, 1)"
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -73,8 +75,17 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       textShadow: {
-        glow: "0 0 10px rgba(143, 95, 39, 1)"
+        glow: "0 0 8px rgba(143, 95, 39, 1)",
+        green: "0 2px 8px rgba(76,98,42,1)",
+        red: "0 2px 8px rgba(102,16,29,1)",
+        orange: "0 2px 8px rgba(201,80,51,1)",
+        yellow: "0 2px 8px rgba(134,101,40,1)",
+        blue: "0 2px 8px rgba(19,43,114,1)",
+        pink: "0 2px 8px rgba(175,116,124,1)",
       },
+      fontFamily: {
+
+      }
     },
   },
   plugins: [require("tailwindcss-animate"), require("tailwindcss-textshadow")],

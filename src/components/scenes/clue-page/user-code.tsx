@@ -6,7 +6,7 @@ interface UserCodeProps {
 
 const UserCode = ({id}: UserCodeProps) => {
   return (
-    <div className='px-6 py-2 bg-blue-100 text-blue-950 font-bold rounded-xl'>
+    <div className='px-6 py-2 bg-blue-100 text-blue ont-bold rounded-xl'>
       <h1>{id}</h1>
     </div>
   )

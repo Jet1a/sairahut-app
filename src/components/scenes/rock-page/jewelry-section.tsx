@@ -7,20 +7,20 @@ interface JewelryProps {
 }
 const JewelrySection = ({ name, src, color }: JewelryProps) => {
   return (
-    <>
-      <h1
-        className={`text-center text-6xl font-bold uppercase ${color} `}
-      >
-        {name}
-      </h1>
+    <div className="flex flex-col items-center justify-center space-y-2">
+      <h1 className="text-gold text-shadow-glow text-5xl">Good Job!</h1>
+      <div className="relative w-[300px] h-[300px]">
       <Image
         src={src}
         alt="jewelry"
-        width={250}
-        height={250}
-        className="mb-4"
+        fill
       />
-    </>
+      </div>
+      <span className="text-rock text-bold text-md">You&apos;ve got</span>
+      <h1 className={`text-5xl font-bold text-white ${color}`}>
+        {name}
+      </h1>
+    </div>
   );
 };
 

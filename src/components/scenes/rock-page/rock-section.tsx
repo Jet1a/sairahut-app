@@ -74,11 +74,9 @@ const RockSection = () => {
     });
   };
 
-  const titleColor = jewelrys.find((jewel) => jewel.name === jewelColor)?.color;
-
   return (
     <section className="h-screen w-full flex flex-col items-center justify-center space-y-2 ">
-      <div className={styles.fall}>
+      <div>
         {showJewelry ? (
           <div
             className={`${styles.pop} flex flex-col gap-4 justify-center items-center`}
@@ -95,25 +93,26 @@ const RockSection = () => {
               ))}
           </div>
         ) : (
-          <Image
-            src={rockImage}
-            alt="rock"
-            onClick={handleClick}
-            className={`cursor-pointer ${animate ? styles.animate : ""} ${
-              fadeOut ? styles.fadeOut : ""
-            }`}
-            width={300}
-            height={300}
-            unoptimized={true}
-            priority={true}
-          />
+          <div className="flex flex-col text-center items-center">
+            <h1 className="text-5xl text-gold text-shadow-glow">TAP TAP!</h1>
+            <div className={`w-[300px] h-[300px] relative ${styles.fall}`}>
+              <Image
+                src={rockImage}
+                alt="rock"
+                onClick={handleClick}
+                className={`cursor-pointer ${animate ? styles.animate : ""} ${
+                  fadeOut ? styles.fadeOut : ""
+                }`}
+                fill
+                unoptimized={true}
+                priority={true}
+              />
+            </div>
+            <div className={`text-center space-y-4 text-rock font-bold`}>
+              <span>tap the screen to see the surprise!</span>
+            </div>
+          </div>
         )}
-      </div>
-      <div className={`text-center space-y-4 ${showJewelry ? titleColor : ""}`}>
-        <h1 className="text-6xl font-bold">IT30</h1>
-        <p className="font-semibold text-2xl">
-          CODE OF UNDER WORLD&apos;S TREASURE
-        </p>
       </div>
     </section>
   );

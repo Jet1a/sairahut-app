@@ -5,13 +5,20 @@ import topaz from "../../public/images/hmascot/yellow.png"
 import aqua from "../../public/images/hmascot/blue.png"
 import critrine from "../../public/images/hmascot/orange.png"
 
+import green from "../../public/images/screenshot/green.png"
+import yellow from "../../public/images/screenshot/yellow.png"
+import orange from "../../public/images/screenshot/orange.png"
+import red from "../../public/images/screenshot/red.png"
+import blue from "../../public/images/screenshot/blue.png"
+import pink from "../../public/images/screenshot/pink.png"
+
 const houseMascot = [
-   { name: 'Emerald', src: emerald, color: "text-green-400" },
-   { name: 'Ruby', src: ruby, color: "text-red-400" },
-   { name: 'Aqua', src: aqua, color: "text-blue-400" },
-   { name: 'Topaz', src: topaz, color:"text-yellow-400" },
-   { name: 'Seraphina', src: seraphina, color: "text-pink-400" },
-   { name: 'Critrine', src: critrine, color:  "text-orange-400" },
+   { name: 'Emerald', src: emerald, color: "text-shadow-green", href: green },
+   { name: 'Ruby', src: ruby, color: "text-shadow-red", href: red },
+   { name: 'Aqua', src: aqua, color: "text-shadow-blue", href: blue },
+   { name: 'Topaz', src: topaz, color: "text-shadow-yellow", href: yellow },
+   { name: 'Seraphina', src: seraphina, color: "text-shadow-pink", href: pink },
+   { name: 'Critrine', src: critrine, color: "text-shadow-orange", href: orange },
 ]
 
 export default houseMascot

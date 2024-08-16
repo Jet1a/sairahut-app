@@ -10,12 +10,12 @@ const HomeSection = () => {
       <section
         className={`${styles.popup} min-h-screen flex flex-col items-center justify-center space-y-2`}
       >
-        <h1 className="uppercase text-center text-4xl font-bold  text-amber-200 text-shadow-glow">
+        <h1 className="uppercase text-center text-4xl font-bold text-gold text-shadow-glow">
           The code of underworld&apos;s treasure
         </h1>
-        <div className="w-[250px] h-[250px] relative">
+        <div className="w-[300px] h-[250px] relative">
           <Image
-            src="/images/mascot2.png"
+            src="/images/mascot.png"
             alt="mascot"
             fill
             priority={true}
@@ -23,8 +23,8 @@ const HomeSection = () => {
             objectFit="contain"
           />
         </div>
-        <div className="text-center space-y-4">
-          <h1 className="text-6xl font-bold  text-amber-200 text-shadow-glow ">
+        <div className="text-center space-y-2">
+          <h1 className="text-6xl font-bold text-gold text-shadow-glow">
             IT30
           </h1>
         </div>

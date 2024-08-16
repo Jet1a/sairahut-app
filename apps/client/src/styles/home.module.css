@@ -1,0 +1,41 @@
+.popup{
+   animation: popUp 0.5s ease-in-out
+}
+
+.pop{
+   animation: popUp 1.5s ease-in-out
+}
+
+@keyframes popUp{
+   0%{
+      transform: scale(0);
+      opacity: 0;
+   }
+   100%{
+      transform: scale(1);
+      opacity: 1;
+   }
+}
+
+.background {
+   background-image: url("../../public/images/dt_bg.png");
+   background-size: 100% 100%;
+   background-position: center;
+   background-repeat: no-repeat;
+   width: 100%;
+   height: 100vh; 
+}
+
+@media (max-width: 900px) {
+   .background {
+      background-image: url('../../public/images/md_bg.png')
+   }
+ }
+
+
+@media (max-width: 600px) {
+   .background {
+      background-image: url('../../public/images/sm_bg.png');
+   }
+}
+

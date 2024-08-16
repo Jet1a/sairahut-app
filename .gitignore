@@ -1,0 +1,17 @@
+# Ignore directories
+node_modules
+build
+dist
+.next
+.env
+.nx
+
+# Ignore within monorepo apps
+apps/*/.next
+apps/*/node_modules
+apps/*/dist
+apps/*/build
+apps/*/.env
+
+# Nx workspace specific
+.nx/workspace-data

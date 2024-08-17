@@ -4,7 +4,7 @@ const {
   getUserById,
 } = require('../controller/users.db.controller');
 
-const { auth } = reqiure('../middlewares/authGuard.middleware');
+const { auth } = require('../middlewares/authGuard.middleware');
 
 const { addAllUserToDB, } = require('../controller/users.gsheets.controller');
 

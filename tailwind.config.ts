@@ -83,9 +83,6 @@ const config = {
         blue: "0 2px 8px rgba(19,43,114,1)",
         pink: "0 2px 8px rgba(175,116,124,1)",
       },
-      fontFamily: {
-
-      }
     },
   },
   plugins: [require("tailwindcss-animate"), require("tailwindcss-textshadow")],

@@ -3,6 +3,7 @@ import { Mitr } from "next/font/google";
 import "@/styles/globals.css";
 import { Suspense } from "react";
 import { Moul } from "next/font/google";
+import Loading from "./loading";
 const mitr = Moul({
   subsets: ["latin"],
   weight: ["400"],
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={mitr.className}>
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </body>
     </html>
   );

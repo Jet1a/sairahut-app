@@ -8,6 +8,9 @@ import { useSearchParams, useRouter } from "next/navigation";
 import styles from "@/styles/rock.module.css";
 import JewelrySection from "./jewelry-section";
 
+const rockImages = [rocks.rock1, rocks.rock2, rocks.rock3, rocks.rock4];
+const clickThresholds = [5, 10, 15, 15];
+
 const RockSection = () => {
   const [rockImage, setRockImage] = useState(rocks.rock1);
   const [clickCount, setClickCount] = useState(0);
@@ -19,9 +22,6 @@ const RockSection = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const slug = searchParams.get("Id");
-
-  const rockImages = [rocks.rock1, rocks.rock2, rocks.rock3, rocks.rock4];
-  const clickThresholds = [5, 10, 15, 15];
 
   useEffect(() => {
     if (showJewelry) {
@@ -38,7 +38,6 @@ const RockSection = () => {
           router.push("/");
         }
         setJewelColor(data.data[0][2]);
-        console.log(data.data[0][2]);
       } catch (error) {
         console.error("Error fetching data!", error);
         throw new Error("Error fethcing data!");

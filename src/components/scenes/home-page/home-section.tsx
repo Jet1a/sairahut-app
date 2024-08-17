@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "../../../styles/home.module.css";
 import dynamic from "next/dynamic";
+import { lazy } from "react";
 
 const HomeInput = dynamic(() => import("./home-input"), { ssr: false });
 
@@ -10,16 +11,15 @@ const HomeSection = () => {
       <section
         className={`${styles.popup} min-h-screen flex flex-col items-center justify-center space-y-2`}
       >
-        <h1 className="uppercase text-center text-4xl font-bold text-gold text-shadow-glow">
-          The code of underworld&apos;s treasure
+        <h1 className="text-center text-4xl font-bold text-gold text-shadow-glow">
+          THE CODE OF UNDERWORLD&apos;S TREASURE
         </h1>
         <div className="w-[300px] h-[250px] relative">
           <Image
-            src="/images/mascot.png"
+            src="/images/mascotTiny.png"
             alt="mascot"
             fill
             priority={true}
-            unoptimized={true}
             objectFit="contain"
           />
         </div>

@@ -29,6 +29,7 @@ const addUser = async (req, res) => {
       student_id: req.body.student_id,
       name: req.body.name,
       house_name: req.body.house_name,
+      code: req.body.code,
       hint_1: req.body.hint_1,
       hint_2: req.body.hint_2,
       hint_3: req.body.hint_3,

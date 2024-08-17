@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    code: {
+      type: String,
+    },
     hint_1: {
       type: String,
     },

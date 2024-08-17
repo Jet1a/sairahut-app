@@ -5,6 +5,7 @@ dist
 .next
 .env
 .nx
+apps/api/sit-sairahut-uwt-key
 
 # Ignore within monorepo apps
 apps/*/.next
@@ -15,3 +16,6 @@ apps/*/.env
 
 # Nx workspace specific
 .nx/workspace-data
+
+# Ignore specific key file
+apps/api/sit-sairahut-uwt-key

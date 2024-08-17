@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install": "pnpm exec nx run-many --target=install",
     "dev": "pnpm exec nx run-many --target=dev",
     "start": "pnpm exec nx run-many --target=start",
     "build": "pnpm exec nx run-many --target=build",

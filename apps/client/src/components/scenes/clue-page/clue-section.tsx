@@ -15,7 +15,11 @@ const ClueSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/datas?Id=${slug}`);
+        const res = await fetch(`/api/datas?Id=${slug}`, {
+          headers: {
+            'Authorization': 'Barear Cookies'
+          }
+        });
         const data = await res.json();
         console.log(data.data[0]);
         setHints(data.data[0]);

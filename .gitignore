@@ -18,4 +18,4 @@ apps/*/.env
 .nx/workspace-data
 
 # Ignore specific key file
-apps/api/sit-sairahut-uwt-key
+apps/api/sit-sairahut-uwt-key.json

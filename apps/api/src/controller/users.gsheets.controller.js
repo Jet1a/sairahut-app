@@ -3,22 +3,22 @@ const accessSpreadsheet = require('../utils/sheets');
 
 async function addAllUserToDB(req, res) {
   try {
-
-    const sheetData = await accessSpreadsheet('แบ่งสายน้องIT#30', 'A2', 'J115');
-
+    const sheetData = await accessSpreadsheet('สายรหัสน้องIT#30', 'A2', 'J115');
     const rows = sheetData.data.values;
+    const schemaKeys = Object.keys(User.schema.obj);
 
     if (rows.length) {
-      const users = rows.map((row) => ({
-        student_id: row[0] || null,
-        name: row[2] || null,
-        house_name: row[4] || null,
-        code: row[5] || null,
-        hint_1: row[6] || null,
-        hint_2: row[7] || null,
-        hint_3: row[8] || null,
-        hint_4: row[9] || null,
-      }));
+      const includeIndex = [0, 3, 4, 5, 6, 7, 8, 9]; 
+      const users = [];
+
+      rows.forEach((row, rowIndex) => {
+        const mappedData = includeIndex.map((index) => row[index]);
+        let user = {};
+        schemaKeys.forEach((key, keyIndex) => {
+          user[key] = mappedData[keyIndex] || null;
+        })
+        users.push(user)
+      })
 
       await User.insertMany(users);
 
@@ -28,7 +28,9 @@ async function addAllUserToDB(req, res) {
     }
   } catch (error) {
     console.error('Error adding users to database:', error);
-    res.status(500).json({ message: 'Failed to add users to database.', error });
+    res
+      .status(500)
+      .json({ message: 'Failed to add users to database.', error });
   }
 }
 

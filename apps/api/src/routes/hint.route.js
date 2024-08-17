@@ -1,14 +1,8 @@
 const hintRouter = require('express').Router();
 const {
-  getAllHints,
   getHintsByCode,
-} = require('../controller/hint.db.controller');
-const { addAllHintToDB } = require('../controller/hint.gsheets.controller');
+} = require('../controller/hints.db.controller');
 
-hintRouter.get('/', getAllHints);
-
-hintRouter.get('/id', getHintsByCode);
-
-hintRouter.post('/add-hints', addAllHintToDB);
+hintRouter.get('/gethint', getHintsByCode);
 
 module.exports = hintRouter;

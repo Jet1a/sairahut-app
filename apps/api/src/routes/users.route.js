@@ -12,8 +12,8 @@ const userRouter = require('express').Router();
 
 userRouter.get('/id', getUserById);
 
-userRouter.get('/', guard, getAllUsers);
-userRouter.post('/', guard, addUser);
-userRouter.post('/addUserTodb', addAllUserToDB);
+userRouter.get('/getAllUser', guard, getAllUsers);
+userRouter.post('/addUser', guard, addUser);
+userRouter.post('/addUserTodb', guard, addAllUserToDB);
 
 module.exports = userRouter;

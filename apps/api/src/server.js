@@ -5,7 +5,6 @@ const cors = require('cors');
 const userRouter = require('./routes/users.route');
 const hintRouter = require('./routes/hints.route');
 const authRouter = require('./routes/auth.route');
-const gSheetsRouter = require('./routes/gsheets.route');
 const logEvents = require('./middlewares/logEvents');
 const { connectDB } = require('./utils/mongodb.utils');
 const { PORT } = require('./config');
@@ -20,7 +19,6 @@ app.use(logEvents);
 
 app.use('/users', userRouter);
 app.use('/hints', hintRouter)
-app.use('/gsheets', gSheetsRouter);
 app.use('/auth', authRouter)
 
 app.listen(PORT, async () => {

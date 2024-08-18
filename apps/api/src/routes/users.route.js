@@ -1,7 +1,9 @@
 const {
+  getUserById,
   getAllUsers,
   addUser,
-  getUserById,
+  updateUser,
+  deleteUser,
 } = require('../controller/users.db.controller');
 
 const { guard } = require('../middlewares/authguard.middleware');
@@ -14,6 +16,8 @@ userRouter.get('/id', getUserById);
 
 userRouter.get('/getAllUser', guard, getAllUsers);
 userRouter.post('/addUser', guard, addUser);
+userRouter.put('/updateUser', updateUser);
+userRouter.delete('/deleteUser', deleteUser);
 userRouter.post('/updateUserToDB', guard, updateAllUserToDB);
 
 module.exports = userRouter;

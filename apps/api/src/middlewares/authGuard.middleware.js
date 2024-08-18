@@ -1,3 +1,4 @@
+const { JWT_SECRET } = require('../config');
 const jwt = require("jsonwebtoken");
 
 function guard(req, res, next) {
@@ -9,7 +10,7 @@ function guard(req, res, next) {
 
     token = token.replace("Bearer ", "");
   
-    jwt.verify(token, secretKey, (err, user) => {
+    jwt.verify(token, JWT_SECRET, (err, user) => {
       if (err) {
         return res.status(403).json({ error: 'Invalid Token' });
       }

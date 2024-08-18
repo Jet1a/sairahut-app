@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const login = async (req, res) => {
     const password = req.body.password;
-
+    
     if(!password) {
         return res.status(403).json({ error: 'No password provided' });
     }

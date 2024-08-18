@@ -1,5 +1,6 @@
 # Base image with Node.js and pnpm installed
 FROM node:20-slim AS base
+RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -40,11 +41,16 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+COPY --from=build /app/apps/client/package.json ./package.json
+COPY --from=build --chown=nextjs:nodejs /app/apps/client/.next ./.next
 COPY --from=build /app/apps/client/public ./public
-COPY --from=build /app/apps/client/.next/standalone ./
-COPY --from=build /app/apps/client/.next/static ./.next/static
 
-# COPY --from=build /app/apps/client/package.json ./package.json
-# RUN pnpm install --prod
+RUN pnpm install --prod
 
-CMD ["node", "./apps/client/server.js"]
+EXPOSE 3000
+
+ENV PORT 3000
+# set hostname to localhost
+ENV HOSTNAME "0.0.0.0"
+
+CMD ["pnpm", "start"]

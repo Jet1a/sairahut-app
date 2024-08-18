@@ -8,7 +8,7 @@ const authRouter = require('./routes/auth.route');
 const logEvents = require('./middlewares/logEvents');
 const { connectDB } = require('./utils/mongodb.utils');
 const { PORT } = require('./config');
-
+ 
 const app = express();
 
 // MIDDLEWARES

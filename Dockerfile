@@ -1,5 +1,6 @@
 # Base image with Node.js and pnpm installed
 FROM node:20-slim AS base
+RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable

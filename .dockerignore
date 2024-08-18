@@ -1,0 +1,17 @@
+node_modules
+.git
+.gitignore
+.nx
+.husky
+*.md
+
+dist
+
+apps/*/.next
+apps/*/node_modules
+apps/*/dist
+apps/*/build
+apps/*/.env
+
+# Nx workspace specific
+.nx/workspace-data

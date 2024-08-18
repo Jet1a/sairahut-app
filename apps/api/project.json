@@ -1,13 +1,12 @@
 {
-    "name": "api",
-    "targets": {
-      "serve": {
-        "executor": "nx:run-commands",
-        "options": {
-          "command": "pnpm run dev",
-          "cwd": "apps/api"
-        }
+  "name": "api",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm run dev",
+        "cwd": "apps/api"
       }
     }
   }
-  
+}

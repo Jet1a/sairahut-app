@@ -4,9 +4,26 @@ const User = require('../models/user.model');
 const getUserById = async (req, res) => {
   try {
     const id = '67130500'.concat(req.body.student_id);
-    await User.findOne({ Student_id: id }).then((result) => {
-      res.json(result);
+    const data = await User.findOne({ student_id: id });
+
+    if (!data) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Data not found for the provided student_id',
+      });
+    }
+
+    let response = {
+      student_id: data.student_id,
+      name: data.name,
+      house_name: data.house_name,
+    };
+
+    res.status(200).json({
+      status: 'success',
+      data: response,
     });
+
   } catch (err) {
     console.log(err);
     res.json({});

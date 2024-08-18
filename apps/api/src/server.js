@@ -3,6 +3,7 @@ const path = require('path');
 const cors = require('cors');
 
 const userRouter = require('./routes/users.route');
+const hintRouter = require('./routes/hints.route');
 const authRouter = require('./routes/auth.route');
 const gSheetsRouter = require('./routes/gsheets.route');
 const logEvents = require('./middlewares/logEvents');
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(logEvents);
 
 app.use('/users', userRouter);
+app.use('/hints', hintRouter)
 app.use('/gsheets', gSheetsRouter);
 app.use('/auth', authRouter)
 

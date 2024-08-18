@@ -14,6 +14,6 @@ userRouter.get('/id', getUserById);
 
 userRouter.get('/', guard, getAllUsers);
 userRouter.post('/', guard, addUser);
-userRouter.post('/addUserTodb', guard, addAllUserToDB);
+userRouter.post('/addUserTodb', addAllUserToDB);
 
 module.exports = userRouter;

@@ -1,9 +1,24 @@
-const { jwt } = require('jwt')
+const jwt = require("jsonwebtoken");
 
-const auth = async (req, res) => {
-    console.log(aaa)
-  };
+function guard(req, res, next) {
+    let token = req.header('Authorization');
+  
+    if (!token) {
+      return res.status(401).json({ error: 'Access Denied. No token provided.' });
+    }
+
+    token = token.replace("Bearer ", "");
+  
+    jwt.verify(token, secretKey, (err, user) => {
+      if (err) {
+        return res.status(403).json({ error: 'Invalid Token' });
+      }
+  
+      req.user = user;
+      next();
+    });
+  }
 
 module.exports = {
-    auth,
+  guard,
 }

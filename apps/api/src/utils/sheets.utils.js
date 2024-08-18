@@ -1,12 +1,12 @@
-require('dotenv').config();
 const { google } = require('googleapis');
+const { SPREADSHEET_ID, KEYFILE_NAME } = require("../config")
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
 
 const SPREADSHEETID =
-  process.env.SPREADSHEET_ID || '1vW403i2EmrdcjEduzcyuDvayu9TIEIyas6jiL6HQtgU';
-const KEYFILENAME = `${process.env.KEYFILE_NAME || 'sit-sairahut-uwt-key'}.json`;
+SPREADSHEET_ID || '1vW403i2EmrdcjEduzcyuDvayu9TIEIyas6jiL6HQtgU';
+const KEYFILENAME = `${KEYFILE_NAME || 'sit-sairahut-uwt-key'}.json`;
 const KEYFILEPATH = path.join(__dirname, '../..', KEYFILENAME);
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 

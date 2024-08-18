@@ -3,6 +3,6 @@ const {
   getHintsByCode,
 } = require('../controller/hints.db.controller');
 
-hintRouter.get('/gethint', getHintsByCode);
+hintRouter.get('/getHint', getHintsByCode);
 
 module.exports = hintRouter;

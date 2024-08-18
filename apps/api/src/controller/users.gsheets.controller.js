@@ -1,5 +1,5 @@
 const User = require('../models/user.model');
-const accessSpreadsheet = require('../utils/sheets');
+const accessSpreadsheet = require('../utils/sheets.utils');
 
 async function addAllUserToDB(req, res) {
   try {

@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "install": "pnpm install",
     "start": "node ./src/server",
     "dev": "nodemon ./src/server",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +16,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "googleapis": "^140.0.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2"
   },
   "devDependencies": {

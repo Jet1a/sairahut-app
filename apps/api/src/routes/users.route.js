@@ -4,15 +4,16 @@ const {
   getUserById,
 } = require('../controller/users.db.controller');
 
-const { auth } = require('../middlewares/authGuard.middleware');
+const { guard } = require('../middlewares/authguard.middleware');
 
 const { addAllUserToDB, } = require('../controller/users.gsheets.controller');
 
 const userRouter = require('express').Router();
 
-userRouter.get('/', auth, getAllUsers);
-userRouter.get('/id', auth, getUserById);
-userRouter.post('/', auth, addUser);
-userRouter.post('/addUserTodb', auth, addAllUserToDB);
+userRouter.get('/id', getUserById);
+
+userRouter.get('/', guard, getAllUsers);
+userRouter.post('/', guard, addUser);
+userRouter.post('/addUserTodb', guard, addAllUserToDB);
 
 module.exports = userRouter;

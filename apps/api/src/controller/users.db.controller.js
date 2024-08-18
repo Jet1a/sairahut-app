@@ -1,16 +1,6 @@
 const User = require('../models/user.model');
 
-const getAllUsers = async (req, res) => {
-  try {
-    await User.find().then((result) => {
-      res.json(result);
-    });
-  } catch (err) {
-    console.log(err);
-    res.json({});
-  }
-};
-
+// For client
 const getUserById = async (req, res) => {
   try {
     const id = '67130500'.concat(req.body.student_id);
@@ -23,6 +13,19 @@ const getUserById = async (req, res) => {
   }
 };
 
+// For admin 
+const getAllUsers = async (req, res) => {
+  try {
+    await User.find().then((result) => {
+      res.json(result);
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({});
+  }
+};
+
+// For admin
 const addUser = async (req, res) => {
   try {
     const data = {

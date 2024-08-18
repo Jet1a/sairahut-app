@@ -12,7 +12,13 @@ services:
       - '4000:4000'
     environment:
       - NODE_ENV=production
+      - PORT=4000
+      - SPREADSHEET_ID=1n1R1iExthLH7P9UM0RUGKHN1S-an6tZVMEoKQnbQhvM
+      - KEYFILE_NAME=sit-sairahut-uwt-key
       - MONGODB_URL=mongodb://sairahut-mongo/sit-sairahut-uwt-dev
+      - AUTHENTICATION_SECRET=admin123123123123
+      - PASSWORD=finlovethailand
+      - JWT_SECRET=XgUIc6AEURU8siQh1HI6HwtkCUmarHYl3GKH7toS0f2xC392VhpmYfuKB7Hr9QWg
     depends_on:
       - mongo
   client:
@@ -25,7 +31,7 @@ services:
       cache_from:
         - node:20-slim
     ports:
-      - '3000:3000'
+      - '80:3000'
     environment:
       - NODE_ENV=production
     depends_on:

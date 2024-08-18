@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  api:
+    container_name: sairahut-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+      cache_from:
+        - node:20-slim
+    ports:
+      - '4000:4000'
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - SPREADSHEET_ID=1n1R1iExthLH7P9UM0RUGKHN1S-an6tZVMEoKQnbQhvM
+      - KEYFILE_NAME=sit-sairahut-uwt-key
+      - MONGODB_URL=mongodb://sairahut-mongo/sit-sairahut-uwt-dev
+      - AUTHENTICATION_SECRET=admin123123123123
+      - PASSWORD=finlovethailand
+      - JWT_SECRET=XgUIc6AEURU8siQh1HI6HwtkCUmarHYl3GKH7toS0f2xC392VhpmYfuKB7Hr9QWg
+    depends_on:
+      - mongo
+  client:
+    container_name: sairahut-client
+    image: client
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: client
+      cache_from:
+        - node:20-slim
+    ports:
+      - '80:3000'
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - api
+  mongo:
+    container_name: sairahut-mongo
+    image: mongo:4.0
+    volumes:
+      - mongodata:/data/db
+volumes:
+  mongodata:
+    driver: local

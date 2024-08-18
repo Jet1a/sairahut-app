@@ -15,5 +15,5 @@ module.exports = {
     SPREADSHEET_ID,
     KEYFILE_NAME,
     PASSWORD,
-    JWT_SECRET
+    JWT_SECRET,
 }

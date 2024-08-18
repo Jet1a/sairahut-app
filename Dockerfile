@@ -45,7 +45,7 @@ COPY --from=build /app/apps/client/package.json ./package.json
 COPY --from=build --chown=nextjs:nodejs /app/apps/client/.next ./.next
 COPY --from=build /app/apps/client/public ./public
 
-RUN pnpm install --prod
+RUN pnpm install
 
 EXPOSE 3000
 

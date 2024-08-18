@@ -15,5 +15,6 @@
     }
   },
   "defaultBase": "master",
-  "nxCloudAccessToken": "YzNlNzQ4N2QtMjRiOS00NGZjLTg3MTUtM2YyZjYyZDcyOWIzfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "YzNlNzQ4N2QtMjRiOS00NGZjLTg3MTUtM2YyZjYyZDcyOWIzfHJlYWQtd3JpdGU=",
+  "packageManager": "pnpm"
 }

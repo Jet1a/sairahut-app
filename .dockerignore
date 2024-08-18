@@ -1,11 +1,15 @@
 node_modules
+dist
 .git
 .gitignore
 .nx
 .husky
 *.md
+*.log
+*.env
 
-dist
+Dockerfile
+.dockerignore
 
 apps/*/.next
 apps/*/node_modules

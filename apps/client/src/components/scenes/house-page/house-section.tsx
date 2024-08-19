@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import MascotSection from './mascot-section';
 import { IoMdDownload } from 'react-icons/io';
 
-const HouseSection = () => {
+const 
+  HouseSection = () => {
   const [mascot, setMascot] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 

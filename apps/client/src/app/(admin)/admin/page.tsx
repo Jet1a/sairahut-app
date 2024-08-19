@@ -1,15 +1,21 @@
 'use client'
-
 import React, { useEffect, useState } from 'react';
+import { useAuth } from "@/hooks/useAuth";
 
-const AdminPage = () => {
-  const [users, setUsers] = useState([]);
+const AdminPage: React.FC = () => {
+  useAuth();
+  const token = localStorage.getItem('token');
+  const [users, setUsers] = useState<User[]>([]);
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`,
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`/api/users/`); 
-        const data = await response.json();
+        const response = await fetch(`http://localhost:8000/users/getAllUser`, {headers});
+        const data: User[] = await response.json();
         setUsers(data);
       } catch (err) {
         console.error('Error fetching user data:', err);
@@ -25,20 +31,20 @@ const AdminPage = () => {
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>student_id</th>
-            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>name</th>
-            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>house_name</th>
-            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>code</th>
-            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>hint_1</th>
-            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>hint_2</th>
-            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>hint_3</th>
-            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>hint_4</th>
+            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Student ID</th>
+            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Name</th>
+            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>House Name</th>
+            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Code</th>
+            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Hint 1</th>
+            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Hint 2</th>
+            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Hint 3</th>
+            <th style={{ border: '1px solid black', padding: '8px', backgroundColor: '#f2f2f2' }}>Hint 4</th>
           </tr>
         </thead>
-        {/* <tbody>
+        <tbody>
           {users.length > 0 ? (
-            users.map((user, index) => (
-              <tr key={index}>
+            users.map((user) => (
+              <tr key={user.student_id}>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{user.student_id}</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{user.name}</td>
                 <td style={{ border: '1px solid black', padding: '8px' }}>{user.house_name}</td>
@@ -56,7 +62,7 @@ const AdminPage = () => {
               </td>
             </tr>
           )}
-        </tbody> */}
+        </tbody>
       </table>
     </div>
   );

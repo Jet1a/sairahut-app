@@ -1,4 +1,3 @@
-
 const { PASSWORD: ADMIN_PASSWORD, JWT_SECRET } = require('../config/index')
 const jwt = require('jsonwebtoken')
 

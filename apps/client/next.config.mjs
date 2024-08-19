@@ -11,15 +11,14 @@ const nextConfig = {
   // experimental: {
   //   outputFileTracingRoot: path.join(__dirname, '../../'),
   // },
-  async redirects() {
-        return [
-          {
-            source: '/api/:path*',
-            destination: 'http://localhost:8000/api/:path*',
-            permanent: true,
-          },
-        ]
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:8000/:path*',
       },
+    ];
+  },
 };
 
 export default nextConfig;

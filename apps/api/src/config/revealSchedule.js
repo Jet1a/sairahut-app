@@ -1,4 +1,3 @@
-
 const revealSchedule = [
 
     { date: new Date('2024-08-23T21:00:00+07:00'), fields: ['code', 'hint_1'] }, // 23-8-67 21:00:00

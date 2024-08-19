@@ -94,7 +94,7 @@ const RockSection = () => {
           </div>
         ) : (
           <div className="flex flex-col text-center items-center">
-            <h1 className="text-5xl text-gold text-shadow-glow">TAP TAP!</h1>
+            <h1 className="text-5xl text-gold drop-shadow-glow">TAP TAP!</h1>
             <div className={`w-[300px] h-[300px] relative ${styles.fall}`}>
               <Image
                 src={rockImage}

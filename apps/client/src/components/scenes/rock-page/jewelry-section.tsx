@@ -8,7 +8,7 @@ interface JewelryProps {
 const JewelrySection = ({ name, src, color }: JewelryProps) => {
   return (
     <div className="flex flex-col items-center justify-center space-y-2">
-      <h1 className="text-gold text-shadow-glow text-5xl">Good Job!</h1>
+      <h1 className="text-gold drop-shadow-glow text-5xl">Good Job!</h1>
       <div className="relative w-[300px] h-[300px]">
         <Image src={src} alt="jewelry" fill />
       </div>

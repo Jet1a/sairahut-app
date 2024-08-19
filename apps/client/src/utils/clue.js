@@ -1,10 +1,10 @@
 const clues = [
-  { name: 'Emerald', color: 'text-shadow-green' },
-  { name: 'Ruby', color: 'text-shadow-red' },
-  { name: 'Aqua', color: 'text-shadow-blue' },
-  { name: 'Topaz', color: 'text-shadow-yellow' },
-  { name: 'Seraphina', color: 'text-shadow-pink' },
-  { name: 'Critrine', color: 'text-shadow-orange' },
+  { name: 'Emerald', color: 'drop-shadow-green' },
+  { name: 'Ruby', color: 'drop-shadow-red' },
+  { name: 'Aqua', color: 'drop-shadow-blue' },
+  { name: 'Topaz', color: 'drop-shadow-yellow' },
+  { name: 'Seraphina', color: 'drop-shadow-pink' },
+  { name: 'Critrine', color: 'drop-shadow-orange' },
 ];
 
 export default clues;

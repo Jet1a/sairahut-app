@@ -46,7 +46,7 @@ const
               key={index}
               className="text-center font-bold flex flex-col items-center justify-center"
             >
-              <h1 className="text-4xl text-gold text-shadow-glow">
+              <h1 className="text-4xl text-gold drop-shadow-glow">
                 Congratulation!
               </h1>
               <MascotSection

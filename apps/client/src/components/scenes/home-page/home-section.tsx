@@ -10,7 +10,7 @@ const HomeSection = () => {
       <section
         className={`${styles.popup} min-h-screen flex flex-col items-center justify-center space-y-2`}
       >
-        <h1 className="uppercase text-center text-4xl font-bold text-gold text-shadow-glow">
+        <h1 className="uppercase text-center text-4xl font-bold text-gold drop-shadow-glow">
           The code of underworld&apos;s treasure
         </h1>
         <div className="w-[300px] h-[250px] relative">
@@ -24,7 +24,7 @@ const HomeSection = () => {
           />
         </div>
         <div className="text-center space-y-2">
-          <h1 className="text-6xl font-bold text-gold text-shadow-glow">
+          <h1 className="text-6xl font-bold text-gold drop-shadow-glow">
             IT30
           </h1>
         </div>

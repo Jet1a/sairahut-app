@@ -1,9 +1,10 @@
 const User = require('../models/user.model');
+const revealSchedule = require('../config/revealSchedule');
 
 // For client
 const getUserById = async (req, res) => {
   try {
-    const id = '67130500'.concat(req.body.student_id);
+    const id = '67130500'.concat(req.query.student_id);
     const data = await User.findOne({ student_id: id });
 
     if (!data) {
@@ -13,11 +14,21 @@ const getUserById = async (req, res) => {
       });
     }
 
+    const now = new Date();
+
     let response = {
       student_id: data.student_id,
       name: data.name,
       house_name: data.house_name,
     };
+
+    revealSchedule.forEach((schedule) => {
+      if (now >= schedule.date) {
+        schedule.fields.forEach((field) => {
+          response[field] = data[field];
+        });
+      }
+    });
 
     res.status(200).json({
       status: 'success',
@@ -26,7 +37,10 @@ const getUserById = async (req, res) => {
 
   } catch (err) {
     console.log(err);
-    res.json({});
+    res.status(500).json({
+      status: 'error',
+      message: 'An error occurred while processing the request',
+    });
   }
 };
 

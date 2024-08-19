@@ -1,6 +1,8 @@
-"use client"
+'use client';
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const AdminLoginPage = () => {
   const [password, setPassword] = useState<string>('');
@@ -10,6 +12,7 @@ const AdminLoginPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
+
     try {
       const response = await fetch(`http://localhost:8000/auth/login`, {
         method: 'POST',
@@ -25,8 +28,8 @@ const AdminLoginPage = () => {
 
       const data = await response.json();
       const { accessToken } = data;
-      localStorage.setItem('token', accessToken);
 
+      Cookies.set('token', accessToken, { expires: 1 });
       router.push('/admin');
     } catch (err) {
       setError('Invalid credentials');
@@ -43,13 +46,15 @@ const AdminLoginPage = () => {
           </h2>
         </div>
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
             <span className="block sm:inline">{error}</span>
           </div>
         )}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
-        
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
@@ -78,7 +83,7 @@ const AdminLoginPage = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminLoginPage
+export default AdminLoginPage;

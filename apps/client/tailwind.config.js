@@ -1,12 +1,15 @@
-import type { Config } from 'tailwindcss';
+const { createGlobPatternsForDependencies } = require('@nx/react/tailwind');
+const { join } = require('path');
 
-const config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   darkMode: ['class'],
   content: [
-    './pages/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,jsx,ts,tsx}',
-    './app/**/*.{js,jsx,ts,tsx}',
-    './src/**/*.{js,jsx,ts,tsx}',
+    join(
+      __dirname,
+      '{src,pages,components,app}/**/*!(*.stories|*.spec).{ts,tsx,html}',
+    ),
+    ...createGlobPatternsForDependencies(__dirname),
   ],
   prefix: '',
   theme: {
@@ -74,7 +77,7 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
-      textShadow: {
+      dropShadow: {
         glow: '0 0 8px rgba(143, 95, 39, 1)',
         green: '0 2px 8px rgba(76,98,42,1)',
         red: '0 2px 8px rgba(102,16,29,1)',
@@ -86,7 +89,5 @@ const config = {
       fontFamily: {},
     },
   },
-  plugins: [require('tailwindcss-animate'), require('tailwindcss-textshadow')],
-} satisfies Config;
-
-export default config;
+  plugins: [],
+};

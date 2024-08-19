@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { Mitr } from 'next/font/google';
-import '@/styles/globals.css';
 import { Suspense } from 'react';
 import { Moul } from 'next/font/google';
 const mitr = Moul({
   subsets: ['latin'],
   weight: ['400'],
 });
+
+import '@/styles/globals.css';
 
 export const metadata: Metadata = {
   title: "IT30 Code of Under World's Treasure",

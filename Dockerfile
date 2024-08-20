@@ -26,6 +26,7 @@ WORKDIR /app/api
 
 COPY --from=build /app/apps/api/src ./
 COPY apps/api/package.json ./package.json
+COPY apps/api/sit-sairahut-uwt-key.json ../.
 
 RUN pnpm install --prod
 

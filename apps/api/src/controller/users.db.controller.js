@@ -1,11 +1,10 @@
 const User = require('../models/user.model');
 const revealSchedule = require('../config/revealSchedule');
 
-
 // For client
 const getUserById = async (req, res) => {
   try {
-    const id = '67130500'.concat(req.body.student_id);
+    const id = '67130500'.concat(req.query.student_id);
     const data = await User.findOne({ student_id: id });
 
     if (!data) {
@@ -35,7 +34,6 @@ const getUserById = async (req, res) => {
       status: 'success',
       data: response,
     });
-
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -45,7 +43,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-// For admin 
+// For admin
 const getAllUsers = async (req, res) => {
   try {
     await User.find().then((result) => {
@@ -85,23 +83,27 @@ const updateUser = async (req, res) => {
     const result = await User.findOneAndUpdate(
       { student_id: req.body.student_id },
       req.body,
-      { new: true }
+      { new: true },
     );
 
     result
-      ? res.json({ message: "User updated successfully", data: result })
-      : res.status(404).json({ message: "User not found" });
+      ? res.json({ message: 'User updated successfully', data: result })
+      : res.status(404).json({ message: 'User not found' });
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ message: 'An error occurred while updating the user' });
+    res
+      .status(500)
+      .json({ message: 'An error occurred while updating the user' });
   }
-}
+};
 
 // For admin - Delete user
 const deleteUser = async (req, res) => {
   console.log('Received delete request for:', req.body.student_id);
   try {
-    const result = await User.findOneAndDelete({ student_id: req.body.student_id });
+    const result = await User.findOneAndDelete({
+      student_id: req.body.student_id,
+    });
     if (result) {
       res.json({ message: 'User deleted successfully', data: result });
     } else {
@@ -109,11 +111,11 @@ const deleteUser = async (req, res) => {
     }
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ message: 'An error occurred while deleting the user' });
+    res
+      .status(500)
+      .json({ message: 'An error occurred while deleting the user' });
   }
 };
-
-
 
 module.exports = {
   getUserById,

@@ -17,7 +17,7 @@ const AdminPage: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/users/getAllUser`, {
+        const response = await fetch(`api/users/getAllUser`, {
           headers,
         });
         const data: User[] = await response.json();

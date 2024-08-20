@@ -10,3 +10,10 @@ declare type User = {
     hint_4?: string;
   };
   
+declare type houseType =
+| "Aquacean"
+| "Citrinziar"
+| "Jadeliny"
+| "Rubiana"
+| "Seraphina"
+| "";

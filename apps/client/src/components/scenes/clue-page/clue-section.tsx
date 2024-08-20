@@ -29,7 +29,7 @@ const ClueSection = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8000/users/getUser?student_id=${slug}`,
+          `api/users/getUser?student_id=${slug}`,
         );
         const data = await res.json();
         console.log(data.data);
@@ -57,7 +57,7 @@ const ClueSection = () => {
               {data?.house_name}
             </h1>
           ))}
-        <p className="text-xl mt-4">น้อง {data?.name}</p>
+        <p className="text-xl mt-4">{data?.name}</p>
       </div>
       <div className="">
         <span>This is your clues :</span>

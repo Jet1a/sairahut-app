@@ -34,18 +34,19 @@ const HomeInput = () => {
     },
   });
 
-  
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    // fetch(`/api/users/getAllUser`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     const lastThreeDigits = data?.data?.[0]?.[0]?.slice(-3); 
-    //     form.setValue("pin", lastThreeDigits);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching data:", error);
-    //   });
-    router.push(`/rock?Id=${data.pin}`);
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      const response = await fetch(`/api/users/getUser?student_id=${data.pin}`);
+      const responseData = await response.json();
+
+      if (responseData?.data?.code) {
+        router.push(`/clue?Id=${data.pin}`);
+      } else {
+        router.push(`/rock?Id=${data.pin}`);
+      }
+    } catch (error) {
+      router.push(`/rock?Id=${data.pin}`);
+    }
   };
 
   return (
@@ -63,7 +64,7 @@ const HomeInput = () => {
                 <FormLabel>Please enter your last 3 student id digits</FormLabel>
                 <FormControl>
                   <InputOTP maxLength={3} pattern={REGEXP_ONLY_DIGITS} {...field}>
-                    <InputOTPGroup className="flex items-center justify-center gap-2 opacity-80">
+                    <InputOTPGroup className="flex items-center justify-center gap-2">
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />
                       <InputOTPSlot index={2} />

@@ -31,7 +31,7 @@ const RockSection = () => {
     }
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/users/getUser?student_id=${slug}`);
+        const res = await fetch(`api/users/getUser?student_id=${slug}`);
         const data = await res.json();
         if (data.data.length <= 0) {
           console.error('Data is empty!');

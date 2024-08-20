@@ -1,4 +1,4 @@
-const { JWT_SECRET } = require('../config');
+const { JWT_SECRET } = require('../../config/index');
 const jwt = require("jsonwebtoken");
 
 function guard(req, res, next) {

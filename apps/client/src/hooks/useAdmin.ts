@@ -20,7 +20,7 @@ export const useAdmin = () => {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:8000/users/getAllUser`, {
+      const response = await fetch(`http://localhost:8000/admin/getAllUser`, {
         headers,
       });
       const data: User[] = await response.json();
@@ -33,7 +33,7 @@ export const useAdmin = () => {
   const refreshUser = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/users/updateUserToDB`,
+        `http://localhost:8000/admin/updateUserToDB`,
         {
           method: 'PUT',
           headers,
@@ -56,7 +56,7 @@ export const useAdmin = () => {
   const addUser = useCallback(
     async (user: Partial<User>) => {
       try {
-        const response = await fetch(`http://localhost:8000/users/addUser`, {
+        const response = await fetch(`http://localhost:8000/admin/addUser`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export const useAdmin = () => {
     async (studentID: string) => {
       try {
         const response = await fetch(
-          `http://localhost:8000/users/deleteUser/${studentID}`,
+          `http://localhost:8000/admin/deleteUser/${studentID}`,
           {
             method: 'DELETE',
             headers: {
@@ -101,7 +101,7 @@ export const useAdmin = () => {
 
   const updateUser = async (updatedUser: User) => {
     try {
-      const response = await fetch(`http://localhost:8000/users/updateUser`, {
+      const response = await fetch(`http://localhost:8000/admin/updateUser`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

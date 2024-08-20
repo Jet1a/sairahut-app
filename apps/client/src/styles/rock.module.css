@@ -65,3 +65,20 @@
       opacity: 0;
    }
 }
+
+.titleA{
+   align-self: flex-end;
+   transform: rotate(25deg);
+   font-size: 28px;
+   position: fixed;
+   top: calc(15% - 1px + 150px);
+   left: calc(65% - 1px);
+}
+.titleB{
+   align-self: flex-end;
+   transform: rotate(25deg);
+   font-size: 28px;
+   position: fixed;
+   top: calc(28% - 1px);
+   left: calc(65% - 1px);
+}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { FaLock } from 'react-icons/fa';
+import React from "react";
+import { FaLock } from "react-icons/fa";
 
 interface ClueLockProps {
   number: number;

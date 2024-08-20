@@ -1,25 +1,21 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import UserCode from './user-code';
-import Stages from './stages';
-import ClueBox from './cluebox';
-import { useSearchParams } from 'next/navigation';
-import clues from '@/utils/clue';
+import { useEffect, useState } from "react";
+import UserCode from "./user-code";
+import Stages from "./stages";
+import ClueBox from "./cluebox";
+import { useSearchParams } from "next/navigation";
+import clues from "@/utils/clue";
 
 const ClueSection = () => {
   const [hints, setHints] = useState([]);
   const searchParams = useSearchParams();
-  const slug = searchParams.get('Id');
+  const slug = searchParams.get("Id");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/datas?Id=${slug}`, {
-          headers: {
-            'Authorization': 'Barear Cookies'
-          }
-        });
+        const res = await fetch(`/api/datas?Id=${slug}`);
         const data = await res.json();
         console.log(data.data[0]);
         setHints(data.data[0]);
@@ -37,7 +33,7 @@ const ClueSection = () => {
         {hints.slice(3).map((hint, index) => {
           const key = index;
           const number = index + 1;
-          return index < 4 ? (
+          return index < 4 && hint !== null ? (
             <Stages key={key} number={number} available={true} />
           ) : (
             <Stages key={key} number={number} available={false} />
@@ -67,8 +63,9 @@ const ClueSection = () => {
         <div className="flex flex-col space-y-4 mt-4">
           {hints
             .slice(3)
+            .filter((hint) => hint !== null)
             .map((hint, index) =>
-              index < 4 ? <ClueBox key={index} clue={hint} /> : null,
+              index < 4 ? <ClueBox key={index} clue={hint} /> : null
             )}
         </div>
       </div>

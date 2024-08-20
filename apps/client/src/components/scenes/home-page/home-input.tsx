@@ -1,25 +1,24 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { useRouter } from 'next/navigation';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from '@/components/ui/input-otp';
-import { REGEXP_ONLY_DIGITS } from 'input-otp';
+} from "@/components/ui/input-otp";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 
 const FormSchema = z.object({
   pin: z.string().min(3),
@@ -27,23 +26,24 @@ const FormSchema = z.object({
 
 const HomeInput = () => {
   const router = useRouter();
-
+  
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      pin: '',
+      pin: "",
     },
   });
 
+  
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     fetch(`/api/datas?Id=${data.pin}`)
       .then((response) => response.json())
       .then((data) => {
-        const lastThreeDigits = data?.data?.[0]?.[0]?.slice(-3);
-        form.setValue('pin', lastThreeDigits);
+        const lastThreeDigits = data?.data?.[0]?.[0]?.slice(-3); 
+        form.setValue("pin", lastThreeDigits);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       });
     router.push(`/rock?Id=${data.pin}`);
   };
@@ -60,15 +60,9 @@ const HomeInput = () => {
             name="pin"
             render={({ field }) => (
               <FormItem className="flex flex-col items-center justify-center gap-2">
-                <FormLabel>
-                  Please enter your last 3 student id digits
-                </FormLabel>
+                <FormLabel>Please enter your last 3 student id digits</FormLabel>
                 <FormControl>
-                  <InputOTP
-                    maxLength={3}
-                    pattern={REGEXP_ONLY_DIGITS}
-                    {...field}
-                  >
+                  <InputOTP maxLength={3} pattern={REGEXP_ONLY_DIGITS} {...field}>
                     <InputOTPGroup className="flex items-center justify-center gap-2">
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />
@@ -79,7 +73,7 @@ const HomeInput = () => {
               </FormItem>
             )}
           />
-          <Button variant="default" size="xl" type="submit">
+          <Button variant="default" size="wood" type="submit">
             Submit
           </Button>
         </form>

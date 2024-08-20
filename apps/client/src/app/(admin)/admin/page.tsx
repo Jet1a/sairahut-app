@@ -16,6 +16,7 @@ const AdminPage: React.FC = () => {
     fetchUsers,
     refreshUser,
     addUser,
+    updateUser,
     deleteUser,
     showForm,
     setFilteredUsers,
@@ -72,6 +73,8 @@ const AdminPage: React.FC = () => {
       hint_3: formData.get('hint_3') as string,
       hint_4: formData.get('hint_4') as string,
     };
+
+    updateUser(updatedUser);
 
     setEditMode(false);
   };

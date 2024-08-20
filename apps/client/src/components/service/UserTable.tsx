@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 interface UserTableProps {
   users: User[];
   onEditClick: (user: User) => void;
-  onDeleteClick: (studentID: string, token: string) => void;
+  onDeleteClick: (studentID: string) => void;
 }
 
 const UserTable: React.FC<UserTableProps> = ({
@@ -11,12 +11,6 @@ const UserTable: React.FC<UserTableProps> = ({
   onEditClick,
   onDeleteClick,
 }) => {
-  const token = Cookies.get('token');
-
-  if (!token) {
-    return <h1>Token not provided</h1>;
-  }
-
   return (
     <table className="w-full mt-5 border-collapse shadow-lg">
       <thead>
@@ -52,7 +46,7 @@ const UserTable: React.FC<UserTableProps> = ({
                   Edit
                 </button>
                 <button
-                  onClick={() => onDeleteClick(user.student_id, token)}
+                  onClick={() => onDeleteClick(user.student_id)}
                   className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
                 >
                   Delete

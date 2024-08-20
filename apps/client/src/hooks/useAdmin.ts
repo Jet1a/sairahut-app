@@ -76,7 +76,7 @@ export const useAdmin = () => {
   );
 
   const deleteUser = useCallback(
-    async (studentID: string, token: string) => {
+    async (studentID: string) => {
       try {
         const response = await fetch(
           `http://localhost:8000/users/deleteUser/${studentID}`,
@@ -99,7 +99,7 @@ export const useAdmin = () => {
     [fetchUsers],
   );
 
-  const updateUser = async (token: string, updatedUser: User) => {
+  const updateUser = async (updatedUser: User) => {
     try {
       const response = await fetch(`http://localhost:8000/users/updateUser`, {
         method: 'PUT',

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ClueBoxProps {
   clue: string;
@@ -6,8 +6,10 @@ interface ClueBoxProps {
 
 const ClueBox = ({ clue }: ClueBoxProps) => {
   return (
-    <div className="w-[275px] h-11 bg-white flex justify-center items-center rounded-lg shadow-2xl cursor-default">
-      <span>{clue}</span>
+    <div className="bg-white text-center w-full max-w-[350px] rounded-lg shadow-2xl p-4">
+      <p className="text-lg break-all">
+        {clue}
+      </p>
     </div>
   );
 };

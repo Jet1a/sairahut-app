@@ -37,7 +37,6 @@ const RockSection = () => {
           console.error('Data is empty!');
           router.push('/');
         }
-        console.log(data.data)
         setJewelColor(data.data.house_name);
       } catch (error) {
         console.error('Error fetching data!', error);
@@ -94,11 +93,6 @@ const RockSection = () => {
           </div>
         ) : (
           <div className="flex flex-col text-center items-center">
-              <div className={`${styles.title}`}>
-                <h1>TAP!</h1>
-                <h1>TAP!</h1>
-              </div>
-        
             <div className={`w-[300px] h-[300px] relative ${styles.fall}`}>
               <Image
                 src={rockImage}

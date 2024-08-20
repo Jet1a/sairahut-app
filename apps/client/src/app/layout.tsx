@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { Moul } from 'next/font/google';
-const mitr = Moul({
+import { Moul, Mitr } from 'next/font/google';
+
+const moul = Moul({
   subsets: ['latin'],
   weight: ['400'],
 });
+
 
 import '@/styles/globals.css';
 
@@ -20,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={mitr.className}>
+      <body className={moul.className}>
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
       </body>
     </html>

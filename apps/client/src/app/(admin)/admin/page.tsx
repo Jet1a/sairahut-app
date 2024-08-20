@@ -23,7 +23,7 @@ const AdminPage: React.FC = () => {
     filteredUsers,
     setShowForm,
   } = useAdmin();
-  
+
   const [filter, setFilter] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [editedUser, setEditedUser] = useState<User | null>(null);
@@ -40,20 +40,23 @@ const AdminPage: React.FC = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const filterValue = e.target.value.trim();
-    setFilter(filterValue);
-
-    if (filterValue) {
-      const filtered = users.filter((user) =>
-        user.student_id.includes(filterValue),
+  useEffect(() => {
+    if (filter) {
+      const filtered = users.filter(
+        (user) =>
+          user.student_id.includes(filter) ||
+          user.name.toLowerCase().includes(filter.toLowerCase())
       );
       setFilteredUsers(filtered);
     } else {
       setFilteredUsers(users);
     }
+  }, [filter, users, setFilteredUsers]);
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.value.trim());
   };
 
   const handleEditClick = (user: User) => {
@@ -113,6 +116,7 @@ const AdminPage: React.FC = () => {
           onSubmit={(e) => {
             e.preventDefault();
             addUser(newUser);
+            setShowForm(false); 
           }}
           onCancel={() => setShowForm(false)}
         />

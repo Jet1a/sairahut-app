@@ -1,6 +1,6 @@
 'use client';
 
-import Cookies from 'node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import { useCallback, useMemo, useState } from 'react';
 
 export const useAdmin = () => {

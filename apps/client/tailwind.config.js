@@ -85,7 +85,7 @@ module.exports = {
         yellow: '0 2px 8px rgba(134,101,40,1)',
         blue: '0 2px 8px rgba(19,43,114,1)',
         pink: '0 2px 8px rgba(175,116,124,1)',
-        gold: '0 0 8px rgba(255, 130, 0, 1)'
+        gold: '0 0 8px rgba(255, 130, 0, 1)',
       },
       backgroundImage: {
         wood: 'url(../../public/images/wood.png)',

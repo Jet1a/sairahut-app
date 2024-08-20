@@ -1,161 +1,143 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+
 import { useAuth } from '@/hooks/useAuth';
-import Cookies from 'js-cookie';
+import FilterInput from '@/components/service/FilterInput';
+import UserForm from '@/components/service/UserForm';
+import UserTable from '@/components/service/UserTable';
+import { useAdmin } from '@/hooks/useAdmin';
 
 const AdminPage: React.FC = () => {
   useAuth();
-  const token = Cookies.get('token');
-  const [users, setUsers] = useState<User[]>([]);
 
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  };
+  const {
+    users,
+    fetchUsers,
+    refreshUser,
+    addUser,
+    updateUser,
+    deleteUser,
+    showForm,
+    setFilteredUsers,
+    filteredUsers,
+    setShowForm,
+  } = useAdmin();
+
+  const [filter, setFilter] = useState('');
+  const [editMode, setEditMode] = useState(false);
+  const [editedUser, setEditedUser] = useState<User | null>(null);
+  const [newUser, setNewUser] = useState<Partial<User>>({
+    student_id: '',
+    name: '',
+    house_name: '',
+    code: '',
+    hint_1: '',
+    hint_2: '',
+    hint_3: '',
+    hint_4: '',
+  });
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch(`api/users/getAllUser`, {
-          headers,
-        });
-        const data: User[] = await response.json();
-        setUsers(data);
-      } catch (err) {
-        console.error('Error fetching user data:', err);
-      }
+    fetchUsers();
+  }, [fetchUsers]);
+
+  useEffect(() => {
+    if (filter) {
+      const filtered = users.filter(
+        (user) =>
+          user.student_id.includes(filter) ||
+          user.name.toLowerCase().includes(filter.toLowerCase())
+      );
+      setFilteredUsers(filtered);
+    } else {
+      setFilteredUsers(users);
+    }
+  }, [filter, users, setFilteredUsers]);
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.value.trim());
+  };
+
+  const handleEditClick = (user: User) => {
+    setEditMode(true);
+    setEditedUser(user);
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const updatedUser = {
+      student_id: formData.get('student_id') as string,
+      name: formData.get('name') as string,
+      house_name: formData.get('house_name') as string,
+      code: formData.get('code') as string,
+      hint_1: formData.get('hint_1') as string,
+      hint_2: formData.get('hint_2') as string,
+      hint_3: formData.get('hint_3') as string,
+      hint_4: formData.get('hint_4') as string,
     };
 
-    fetchUsers();
-  }, []);
+    updateUser(updatedUser);
+
+    setEditMode(false);
+  };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Admin Page</h1>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th
-              style={{
-                border: '1px solid black',
-                padding: '8px',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Student ID
-            </th>
-            <th
-              style={{
-                border: '1px solid black',
-                padding: '8px',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Name
-            </th>
-            <th
-              style={{
-                border: '1px solid black',
-                padding: '8px',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              House Name
-            </th>
-            <th
-              style={{
-                border: '1px solid black',
-                padding: '8px',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Code
-            </th>
-            <th
-              style={{
-                border: '1px solid black',
-                padding: '8px',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Hint 1
-            </th>
-            <th
-              style={{
-                border: '1px solid black',
-                padding: '8px',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Hint 2
-            </th>
-            <th
-              style={{
-                border: '1px solid black',
-                padding: '8px',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Hint 3
-            </th>
-            <th
-              style={{
-                border: '1px solid black',
-                padding: '8px',
-                backgroundColor: '#f2f2f2',
-              }}
-            >
-              Hint 4
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.length > 0 ? (
-            users.map((user) => (
-              <tr key={user.student_id}>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {user.student_id}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {user.name}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {user.house_name}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {user.code}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {user.hint_1}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {user.hint_2}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {user.hint_3}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {user.hint_4}
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={8}
-                style={{
-                  border: '1px solid black',
-                  padding: '8px',
-                  textAlign: 'center',
-                }}
-              >
-                No data available
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+    <div className="p-5">
+      <h1 className="text-2xl font-bold mb-5 text-center">Admin Page</h1>
+
+      <FilterInput filter={filter} onFilterChange={handleFilterChange} />
+
+      <div className="mb-5 flex justify-center items-center gap-5">
+        <button
+          onClick={refreshUser}
+          className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+        >
+          Fetch Sheets To Mongo
+        </button>
+        <button
+          onClick={() => setShowForm(true)}
+          className="ml-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+        >
+          Add User
+        </button>
+      </div>
+
+      {showForm && (
+        <UserForm
+          user={newUser}
+          onInputChange={(e) =>
+            setNewUser((prevUser) => ({
+              ...prevUser,
+              [e.target.name]: e.target.value,
+            }))
+          }
+          onSubmit={(e) => {
+            e.preventDefault();
+            addUser(newUser);
+            setShowForm(false); 
+          }}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
+
+      {editMode && editedUser && (
+        <UserForm
+          user={editedUser}
+          onInputChange={(e) =>
+            setEditedUser({ ...editedUser, [e.target.name]: e.target.value })
+          }
+          onSubmit={handleEditSubmit}
+          onCancel={() => setEditMode(false)}
+        />
+      )}
+
+      <UserTable
+        users={filteredUsers}
+        onEditClick={handleEditClick}
+        onDeleteClick={deleteUser}
+      />
     </div>
   );
 };

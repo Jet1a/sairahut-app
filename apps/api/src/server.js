@@ -3,7 +3,6 @@ const path = require('path');
 const cors = require('cors');
 
 const userRouter = require('./routes/users.route');
-const hintRouter = require('./routes/hints.route');
 const authRouter = require('./routes/auth.route');
 const logEvents = require('./middlewares/logEvents');
 const { connectDB } = require('./utils/mongodb.utils');
@@ -18,7 +17,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(logEvents);
 
 app.use('/users', userRouter);
-app.use('/hints', hintRouter)
 app.use('/auth', authRouter)
 
 app.listen(PORT, async () => {

@@ -25,7 +25,7 @@ const buttonVariants = cva(
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         xl: "h-10 rounded-full px-4 uppercase font-bold text-md",
-        wood: "w-[115px] h-[50px] uppercase text-md text-white font-semibold tracking-wider ",
+        wood: "w-[125px] h-[50px] uppercase text-md text-white font-semibold tracking-widest",
         icon: "h-9 w-9",
       },
     },

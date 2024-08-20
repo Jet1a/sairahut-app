@@ -3,7 +3,7 @@ const accessSpreadsheet = require('../utils/sheets.utils');
 
 async function updateAllUserToDB(req, res) {
   try {
-    const sheetData = await accessSpreadsheet('สายรหัสน้องIT#30', 'A2', 'J115');
+    const sheetData = await accessSpreadsheet('สายรหัสน้องIT#30', 'A2', 'J116');
     const rows = sheetData.data.values;
     const schemaKeys = Object.keys(User.schema.obj);
 

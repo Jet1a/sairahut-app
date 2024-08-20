@@ -79,38 +79,41 @@ const addUser = async (req, res) => {
   }
 };
 
-// For admin
-const updateUser = async (req,res) => {
-  try{
+// For admin - Update user
+const updateUser = async (req, res) => {
+  try {
     const result = await User.findOneAndUpdate(
       { student_id: req.body.student_id },
       req.body,
-      { new:true }
+      { new: true }
     );
 
     result
-    ? result.json({message: "User updated successfully", data: result})
-    : res.status(404).json({message: "User not found"})
-  }catch(err){
-    console.err(err.message);
+      ? res.json({ message: "User updated successfully", data: result })
+      : res.status(404).json({ message: "User not found" });
+  } catch (err) {
+    console.error(err.message);
     res.status(500).json({ message: 'An error occurred while updating the user' });
   }
 }
 
-// For admin
-const deleteUser = async (req,res) => {
-  try{
-    const results = await User.findOneAndDelete(
-      { student_id:req.body.student_id}
-    );
-    results
-    ? res.json({message:"User deleted successfully",data:results})
-    : res.status(404).json({message:"User not found"})
-  }catch(err){
-    console.err(err.message)
-    res.status(500).json({message:"An error occurred while deleting the user"})
+// For admin - Delete user
+const deleteUser = async (req, res) => {
+  console.log('Received delete request for:', req.body.student_id);
+  try {
+    const result = await User.findOneAndDelete({ student_id: req.body.student_id });
+    if (result) {
+      res.json({ message: 'User deleted successfully', data: result });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'An error occurred while deleting the user' });
   }
-}
+};
+
+
 
 module.exports = {
   getUserById,

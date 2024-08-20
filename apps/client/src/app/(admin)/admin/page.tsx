@@ -1,8 +1,22 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import React, { useCallback, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { useAuth } from '@/hooks/useAuth';
+import FilterInput from '@/components/service/FilterInput';
+import UserForm from '@/components/service/UserForm';
+import UserTable from '@/components/service/UserTable';
+
+interface User {
+  student_id: string;
+  name: string;
+  house_name: string;
+  code: string;
+  hint_1: string;
+  hint_2: string;
+  hint_3: string;
+  hint_4: string;
+}
 
 const AdminPage: React.FC = () => {
   useAuth();
@@ -10,83 +24,117 @@ const AdminPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [filter, setFilter] = useState('');
+  const [editMode, setEditMode] = useState(false);
+  const [editedUser, setEditedUser] = useState<User | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [newUser, setNewUser] = useState<Partial<User>>({
+    student_id: '',
+    name: '',
+    house_name: '',
+    code: '',
+    hint_1: '',
+    hint_2: '',
+    hint_3: '',
+    hint_4: '',
+  });
 
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
   };
 
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/users/updateUserToDB`, {
-        method: 'POST',
+      const response = await fetch(`http://localhost:8000/users/getAllUser`, {
         headers,
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
       const data: User[] = await response.json();
-      setUsers(data);
       setFilteredUsers(data);
     } catch (err) {
       console.error('Error fetching user data:', err);
     }
   };
 
-  const addUser = async (user: Partial<User>) => {
+  const reFetchUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/users/addUser`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(user),
-      });
+      const response = await fetch(
+        `http://localhost:8000/users/updateUserToDB`,
+        {
+          method: 'PUT',
+          headers,
+        },
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      fetchUsers(); 
+      const data = (await response.json()) as {
+        message: string;
+        updates: User[];
+      };
+      setUsers(data.updates);
+      setFilteredUsers(data.updates);
     } catch (err) {
-      console.error('Error adding user:', err);
+      console.error('Error fetching user data:', err);
     }
   };
 
-  const updateUser = async (user: User) => {
-    try {
-      const response = await fetch(`http://localhost:8000/users/updateUser`, {
-        method: 'PUT',
-        headers,
-        body: JSON.stringify(user),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      fetchUsers(); 
-    } catch (err) {
-      console.error('Error updating user:', err);
-    }
-  };
-
-  const deleteUser = async (studentID: string) => {
-    try {
-      const response = await fetch(`http://localhost:8000/users/deleteUser`, {
-        method: 'DELETE',
-        headers,
-        body: JSON.stringify({ student_id: studentID }),
-      });
-      if (response.ok) {
+  const addUser = useCallback(
+    async (user: Partial<User>) => {
+      try {
+        const response = await fetch(`http://localhost:8000/users/addUser`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         fetchUsers();
+        setShowForm(false);
+      } catch (err) {
+        console.error('Error adding user:', err);
       }
-    } catch (err) {
-      console.error('Error deleting user:', err);
-    }
-  };
+    },
+    [fetchUsers]
+  );
+
+  const deleteUser = useCallback(
+    async (studentID: string) => {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/users/deleteUser/${studentID}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        fetchUsers();
+      } catch (err) {
+        console.error('Error deleting user:', err);
+      }
+    },
+    [fetchUsers, token],
+  );
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const filterValue = e.target.value;
+    const filterValue = e.target.value.trim();
     setFilter(filterValue);
 
     if (filterValue) {
       const filtered = users.filter((user) =>
-        user.student_id.endsWith(filterValue)
+        user.student_id.includes(filterValue),
       );
       setFilteredUsers(filtered);
     } else {
@@ -94,96 +142,93 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const handleEditClick = (user: User) => {
+    setEditMode(true);
+    setEditedUser(user);
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const updatedUser = {
+      student_id: formData.get('student_id') as string,
+      name: formData.get('name') as string,
+      house_name: formData.get('house_name') as string,
+      code: formData.get('code') as string,
+      hint_1: formData.get('hint_1') as string,
+      hint_2: formData.get('hint_2') as string,
+      hint_3: formData.get('hint_3') as string,
+      hint_4: formData.get('hint_4') as string,
+    };
+
+    try {
+      const response = await fetch(`http://localhost:8000/users/updateUser`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      fetchUsers();
+    } catch (err) {
+      console.error('Error updating user:', err);
+    }
+
+    setEditMode(false);
+  };
 
   return (
     <div className="p-5">
       <h1 className="text-2xl font-bold mb-5 text-center">Admin Page</h1>
 
-      {/* Filter input */}
-      <div className="mb-5">
-        <input
-          type="text"
-          value={filter}
-          onChange={handleFilterChange}
-          placeholder="Search by last 3 digits of Student ID"
-          className="px-4 py-2 border rounded w-full mb-3"
-        />
+      <FilterInput filter={filter} onFilterChange={handleFilterChange} />
+      
+      <div className="mb-5 flex justify-center items-center gap-5">
+        <button
+          onClick={reFetchUsers}
+          className="ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+        >
+          UpdateGGSToMongo
+        </button>
+        <button
+          onClick={() => setShowForm(true)}
+          className="ml-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+        >
+          Add User
+        </button>
       </div>
 
-      {/* Form to add a new user */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target as HTMLFormElement);
-          const newUser = {
-            student_id: formData.get('student_id'),
-            name: formData.get('name'),
-            house_name: formData.get('house_name'),
-            code: formData.get('code'),
-            hint_1: formData.get('hint_1'),
-            hint_2: formData.get('hint_2'),
-            hint_3: formData.get('hint_3'),
-            hint_4: formData.get('hint_4'),
-          };
-          addUser(newUser as Partial<User>);
-        }}
-      >
-        <input name="student_id" placeholder="Student ID" required className="mb-3 px-4 py-2 border rounded w-full"/>
-        <input name="name" placeholder="Name" required className="mb-3 px-4 py-2 border rounded w-full"/>
-        <input name="house_name" placeholder="House Name" required className="mb-3 px-4 py-2 border rounded w-full"/>
-        <input name="code" placeholder="Code" required className="mb-3 px-4 py-2 border rounded w-full"/>
-        <input name="hint_1" placeholder="Hint 1" required className="mb-3 px-4 py-2 border rounded w-full"/>
-        <input name="hint_2" placeholder="Hint 2" required className="mb-3 px-4 py-2 border rounded w-full"/>
-        <input name="hint_3" placeholder="Hint 3" required className="mb-3 px-4 py-2 border rounded w-full"/>
-        <input name="hint_4" placeholder="Hint 4" required className="mb-3 px-4 py-2 border rounded w-full"/>
-        <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">Add User</button>
-      </form>
+      {showForm && (
+        <UserForm
+          user={newUser}
+          onInputChange={(e) => setNewUser((prevUser) => ({
+            ...prevUser,
+            [e.target.name]: e.target.value,
+          }))}
+          onSubmit={(e) => {
+            e.preventDefault();
+            addUser(newUser);
+          }}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
 
-      {/* Display filtered user data */}
-      <table className="w-full mt-5 border-collapse shadow-lg">
-        <thead>
-          <tr>
-            <th className="border p-3 bg-blue-500 text-white">Student ID</th>
-            <th className="border p-3 bg-blue-500 text-white">Name</th>
-            <th className="border p-3 bg-blue-500 text-white">House Name</th>
-            <th className="border p-3 bg-blue-500 text-white">Code</th>
-            <th className="border p-3 bg-blue-500 text-white">Hint 1</th>
-            <th className="border p-3 bg-blue-500 text-white">Hint 2</th>
-            <th className="border p-3 bg-blue-500 text-white">Hint 3</th>
-            <th className="border p-3 bg-blue-500 text-white">Hint 4</th>
-            <th className="border p-3 bg-blue-500 text-white">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredUsers.length > 0 ? (
-            filteredUsers.map((user) => (
-              <tr key={user.student_id} className="hover:bg-gray-100 transition">
-                <td className="border p-3">{user.student_id}</td>
-                <td className="border p-3">{user.name}</td>
-                <td className="border p-3">{user.house_name}</td>
-                <td className="border p-3">{user.code}</td>
-                <td className="border p-3">{user.hint_1}</td>
-                <td className="border p-3">{user.hint_2}</td>
-                <td className="border p-3">{user.hint_3}</td>
-                <td className="border p-3">{user.hint_4}</td>
-                <td className="border p-3">
-                  <button onClick={() => updateUser(user)} className="mr-2 px-2 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">Edit</button>
-                  <button onClick={() => deleteUser(user.student_id)} className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">Delete</button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={9} className="border p-3 text-center">
-                No data available
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      {editMode && editedUser && (
+        <UserForm
+          user={editedUser}
+          onInputChange={(e) => setEditedUser({ ...editedUser, [e.target.name]: e.target.value })}
+          onSubmit={handleEditSubmit}
+          onCancel={() => setEditMode(false)}
+        />
+      )}
+
+      <UserTable users={filteredUsers} onEditClick={handleEditClick} onDeleteClick={deleteUser} />
     </div>
   );
 };

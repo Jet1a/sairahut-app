@@ -8,7 +8,7 @@ function guard(req, res, next) {
       return res.status(401).json({ error: 'Access Denied. No token provided.' });
     }
 
-    token = token.replace("Bearer ", "");
+    token = token.replace('Bearer ', '');
   
     jwt.verify(token, JWT_SECRET, (err, user) => {
       if (err) {

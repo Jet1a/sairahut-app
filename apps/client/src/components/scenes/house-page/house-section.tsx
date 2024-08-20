@@ -17,9 +17,9 @@ const HouseSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/datas?Id=${slug}`);
+        const res = await fetch(`http://localhost:8000/users/getUser?student_id=${slug}`);
         const data = await res.json();
-        setMascot(data.data[0][2]);
+        setMascot(data.data.house_name);
         console.log(mascots);
       } catch (error) {
         console.error("Error fetching data!", error);

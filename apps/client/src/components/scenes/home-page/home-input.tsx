@@ -36,15 +36,15 @@ const HomeInput = () => {
 
   
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    fetch(`/api/datas?Id=${data.pin}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const lastThreeDigits = data?.data?.[0]?.[0]?.slice(-3); 
-        form.setValue("pin", lastThreeDigits);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    // fetch(`/api/users/getAllUser`)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     const lastThreeDigits = data?.data?.[0]?.[0]?.slice(-3); 
+    //     form.setValue("pin", lastThreeDigits);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching data:", error);
+    //   });
     router.push(`/rock?Id=${data.pin}`);
   };
 

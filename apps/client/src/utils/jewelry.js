@@ -6,12 +6,12 @@ import aqua from '../../public/images/jewels/aqua.png';
 import topaz from '../../public/images/jewels/topaz.png';
 
 const jewelry = [
-  { name: 'Emerald', src: emerald, color: 'drop-shadow-green' },
-  { name: 'Ruby', src: ruby, color: 'drop-shadow-red' },
-  { name: 'Aqua', src: aqua, color: 'drop-shadow-blue' },
+  { name: 'Jadeliny', src: emerald, color: 'drop-shadow-green' },
+  { name: 'Rubiana', src: ruby, color: 'drop-shadow-red' },
+  { name: 'Aquacean', src: aqua, color: 'drop-shadow-blue' },
   { name: 'Topaz', src: topaz, color: 'drop-shadow-yellow' },
   { name: 'Seraphina', src: seraphina, color: 'drop-shadow-pink' },
-  { name: 'Critrine', src: critrine, color: 'drop-shadow-orange' },
+  { name: 'Critrinziar', src: critrine, color: 'drop-shadow-orange' },
 ];
 
 export default jewelry;

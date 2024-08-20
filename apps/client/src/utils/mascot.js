@@ -13,13 +13,13 @@ import blue from '../../public/images/screenshot/blue.png';
 import pink from '../../public/images/screenshot/pink.png';
 
 const houseMascot = [
-  { name: 'Emerald', src: emerald, color: 'drop-shadow-green', href: green },
-  { name: 'Ruby', src: ruby, color: 'drop-shadow-red', href: red },
-  { name: 'Aqua', src: aqua, color: 'drop-shadow-blue', href: blue },
+  { name: 'Jadeliny', src: emerald, color: 'drop-shadow-green', href: green },
+  { name: 'Rubiana', src: ruby, color: 'drop-shadow-red', href: red },
+  { name: 'Aquacean', src: aqua, color: 'drop-shadow-blue', href: blue },
   { name: 'Topaz', src: topaz, color: 'drop-shadow-yellow', href: yellow },
   { name: 'Seraphina', src: seraphina, color: 'drop-shadow-pink', href: pink },
   {
-    name: 'Critrine',
+    name: 'Critrinziar',
     src: critrine,
     color: 'drop-shadow-orange',
     href: orange,

@@ -65,3 +65,11 @@
       opacity: 0;
    }
 }
+.title{
+   align-self: flex-end;
+   justify-self: end;
+   transform: rotate(25deg);
+   position: absolute;
+   top: 280px;
+   font-size: 24px;
+}

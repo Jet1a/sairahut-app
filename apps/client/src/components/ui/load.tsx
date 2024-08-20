@@ -1,12 +1,14 @@
 import Image from "next/image";
-import styles from "../../../styles/preloader.module.css";
+import React from "react";
+import styles from "../../styles/home.module.css"
 
-const Preloader = () => {
+const LoadingScene = () => {
   return (
     <div
       className={`${styles.background} flex flex-col min-h-screen justify-center items-center`}
     >
-      <div className={`${styles.mascot} w-[300px] h-[300px] relative`}>
+      <h1 className="text-2xl text-white drop-shadow-glow">Wait a minute!!!</h1>
+      <div className="w-[300px] h-[300px] relative">
         <Image
           src="/images/reducegif.gif"
           alt="mascot"
@@ -20,4 +22,4 @@ const Preloader = () => {
   );
 };
 
-export default Preloader;
+export default LoadingScene;

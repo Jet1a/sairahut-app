@@ -11,7 +11,9 @@ const { PORT } = require('./config');
 const app = express();
 
 // MIDDLEWARES
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logEvents);

@@ -8,6 +8,9 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import styles from '@/styles/rock.module.css';
 import JewelrySection from './jewelry-section';
 
+const rockImages = [rocks.rock1, rocks.rock2, rocks.rock3, rocks.rock4];
+const clickThresholds = [15, 30, 50, 50];
+
 const RockSection = () => {
   const [rockImage, setRockImage] = useState(rocks.rock1);
   const [clickCount, setClickCount] = useState(0);
@@ -20,9 +23,6 @@ const RockSection = () => {
   const searchParams = useSearchParams();
   const slug = searchParams.get('Id');
 
-  const rockImages = [rocks.rock1, rocks.rock2, rocks.rock3, rocks.rock4];
-  const clickThresholds = [5, 10, 15, 15];
-
   useEffect(() => {
     if (showJewelry) {
       setTimeout(() => {
@@ -31,14 +31,14 @@ const RockSection = () => {
     }
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/datas?Id=${slug}`);
+        const res = await fetch(`api/users/getUser?student_id=${slug}`);
         const data = await res.json();
         if (data.data.length <= 0) {
           console.error('Data is empty!');
           router.push('/');
         }
-        setJewelColor(data.data[0][2]);
-        console.log(data.data[0][2]);
+        console.log(data.data)
+        setJewelColor(data.data.house_name);
       } catch (error) {
         console.error('Error fetching data!', error);
         throw new Error('Error fethcing data!');
@@ -94,7 +94,11 @@ const RockSection = () => {
           </div>
         ) : (
           <div className="flex flex-col text-center items-center">
-            <h1 className="text-5xl text-gold drop-shadow-glow">TAP TAP!</h1>
+              <div className={`${styles.title}`}>
+                <h1>TAP!</h1>
+                <h1>TAP!</h1>
+              </div>
+        
             <div className={`w-[300px] h-[300px] relative ${styles.fall}`}>
               <Image
                 src={rockImage}

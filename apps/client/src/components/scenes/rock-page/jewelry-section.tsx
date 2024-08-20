@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from "next/image";
 
 interface JewelryProps {
   name: string;
@@ -10,10 +10,16 @@ const JewelrySection = ({ name, src, color }: JewelryProps) => {
     <div className="flex flex-col items-center justify-center space-y-2">
       <h1 className="text-gold drop-shadow-glow text-5xl">Good Job!</h1>
       <div className="relative w-[300px] h-[300px]">
-        <Image src={src} alt="jewelry" fill />
+      <Image
+        src={src}
+        alt="jewelry"
+        fill
+      />
       </div>
       <span className="text-rock text-bold text-md">You&apos;ve got</span>
-      <h1 className={`text-5xl font-bold text-white ${color}`}>{name}</h1>
+      <h1 className={`text-5xl font-bold text-white ${color}`}>
+        {name}
+      </h1>
     </div>
   );
 };

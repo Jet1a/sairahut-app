@@ -57,7 +57,7 @@ const ClueSection = () => {
               {data?.house_name}
             </h1>
           ))}
-        <p className="text-xl mt-4">{data?.name}</p>
+        <p className="text-xl mt-4">น้อง {data?.name}</p>
       </div>
       <div className="">
         <span>This is your clues :</span>

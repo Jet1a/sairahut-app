@@ -63,7 +63,7 @@ const HomeInput = () => {
                 <FormLabel>Please enter your last 3 student id digits</FormLabel>
                 <FormControl>
                   <InputOTP maxLength={3} pattern={REGEXP_ONLY_DIGITS} {...field}>
-                    <InputOTPGroup className="flex items-center justify-center gap-2">
+                    <InputOTPGroup className="flex items-center justify-center gap-2 opacity-80">
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />
                       <InputOTPSlot index={2} />

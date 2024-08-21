@@ -21,6 +21,7 @@ import {
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
+import styles from '@/styles/home.module.css';
 
 const FormSchema = z.object({
   pin: z.string().min(3),
@@ -37,23 +38,36 @@ const HomeInput = () => {
     },
   });
 
+  const isFormError = form.formState.errors.pin;
+  const isError = isFormError || hasError;
+
+  console.log(form.formState.errors);
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const response = await fetch(`/api/users/getUser?student_id=${data.pin}`);
       const responseData = await response.json();
-      console.log(responseData);
+
       if (responseData?.data?.code) {
         setHasError(false);
         router.push(`/clue?Id=${data.pin}`);
       }
+
       if (!responseData?.data) {
         setHasError(true);
+
+        setTimeout(() => {
+          setHasError(false);
+        }, 1500);
         return;
       }
+
       router.push(`/rock?Id=${data.pin}`);
     } catch (error) {
-      console.log(error);
       setHasError(true);
+
+      setTimeout(() => {
+        setHasError(false);
+      }, 1500);
     }
   };
 
@@ -69,20 +83,38 @@ const HomeInput = () => {
             name="pin"
             render={({ field }) => (
               <FormItem className="flex flex-col items-center justify-center gap-2">
-                <FormLabel className={cn(hasError ? 'text-red-500' : '')}>
-                  Please enter your last 3 student id digits
+                <FormLabel className={isError ? 'text-red-500' : ''}>
+                  {hasError
+                    ? 'Invalid student ID, please try again'
+                    : 'Please enter your last 3 student id digits'}
                 </FormLabel>
                 <FormControl>
                   <InputOTP
                     maxLength={3}
                     pattern={REGEXP_ONLY_DIGITS}
                     {...field}
-                    
                   >
-                    <InputOTPGroup className="flex items-center justify-center gap-2">
-                      <InputOTPSlot index={0} className={cn(hasError ? 'border-red-500 border-[3px]' : '')} />
-                      <InputOTPSlot index={1} className={cn(hasError ? 'border-red-500 border-[3px]' : '')} />
-                      <InputOTPSlot index={2} className={cn(hasError ? 'border-red-500 border-[3px]' : '')}/>
+                    <InputOTPGroup
+                      className={`flex items-center justify-center gap-2 ${isError ? styles.shake : ''}`}
+                    >
+                      <InputOTPSlot
+                        index={0}
+                        className={cn(
+                          isError ? 'border-red-500 border-[3px]' : '',
+                        )}
+                      />
+                      <InputOTPSlot
+                        index={1}
+                        className={cn(
+                          isError ? 'border-red-500 border-[3px]' : '',
+                        )}
+                      />
+                      <InputOTPSlot
+                        index={2}
+                        className={cn(
+                          isError ? 'border-red-500 border-[3px]' : '',
+                        )}
+                      />
                     </InputOTPGroup>
                   </InputOTP>
                 </FormControl>

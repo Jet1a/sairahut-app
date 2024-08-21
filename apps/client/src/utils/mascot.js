@@ -19,7 +19,7 @@ const houseMascot = [
   { name: 'Topaz', src: topaz, color: 'drop-shadow-yellow', href: yellow },
   { name: 'Seraphina', src: seraphina, color: 'drop-shadow-pink', href: pink },
   {
-    name: 'Critrinziar',
+    name: 'Citrinziar',
     src: critrine,
     color: 'drop-shadow-orange',
     href: orange,

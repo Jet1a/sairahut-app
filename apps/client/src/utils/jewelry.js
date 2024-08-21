@@ -11,7 +11,7 @@ const jewelry = [
   { name: 'Aquacean', src: aqua, color: 'drop-shadow-blue' },
   { name: 'Topaz', src: topaz, color: 'drop-shadow-yellow' },
   { name: 'Seraphina', src: seraphina, color: 'drop-shadow-pink' },
-  { name: 'Critrinziar', src: critrine, color: 'drop-shadow-orange' },
+  { name: 'Citrinziar', src: critrine, color: 'drop-shadow-orange' },
 ];
 
 export default jewelry;

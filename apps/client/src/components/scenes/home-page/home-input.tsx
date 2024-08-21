@@ -22,10 +22,14 @@ import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import styles from '@/styles/home.module.css';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 const FormSchema = z.object({
   pin: z.string().min(3),
 });
+
+const MySwal = withReactContent(Swal);
 
 const HomeInput = () => {
   const router = useRouter();
@@ -44,9 +48,7 @@ const HomeInput = () => {
   console.log(form.formState.errors);
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
-      const response = await fetch(
-        `/api/users/getUser?student_id=${data.pin}`
-      );
+      const response = await fetch(`/api/users/getUser?student_id=${data.pin}`);
       const responseData = await response.json();
 
       if (responseData?.data?.code) {
@@ -55,21 +57,44 @@ const HomeInput = () => {
       }
 
       if (!responseData?.data) {
-        setHasError(true);
-
-        setTimeout(() => {
-          setHasError(false);
-        }, 1500);
+        MySwal.fire({
+          icon: 'error',
+          title: "You're not registered!",
+          html: `
+            <h1>
+              Please contact
+              <a href="https://www.instagram.com/sit.it.thecodeofuwt/"
+              style="color: purple">
+                @sit.it.thecodeofuwt
+              </a>
+              in instragram
+            </h1>
+          `,
+        });
         return;
       }
 
       router.push(`/rock?Id=${data.pin}`);
     } catch (error) {
-      setHasError(true);
-
-      setTimeout(() => {
-        setHasError(false);
-      }, 1500);
+      // MySwal.fire({
+      //   icon: 'error',
+      //   title: 'Oops...',
+      //   text: 'Something went wrong! ',
+      // });
+      MySwal.fire({
+        icon: 'error',
+        title: 'Something went wrong!',
+        html: `
+          <h1>
+            Please contact
+            <a href="https://www.instagram.com/sit.it.thecodeofuwt/"
+            style="color: purple">
+              @sit.it.thecodeofuwt
+            </a>
+            to report this issue
+          </h1>
+        `,
+      });
     }
   };
 
@@ -85,12 +110,10 @@ const HomeInput = () => {
             name="pin"
             render={({ field }) => (
               <FormItem className="flex flex-col items-center justify-center gap-2">
-
                 <FormLabel className={isError ? 'text-red-500' : ''}>
                   {hasError
                     ? 'Invalid student ID, please try again'
                     : 'Please enter your last 3 student id digits'}
-
                 </FormLabel>
                 <FormControl>
                   <InputOTP
@@ -98,7 +121,6 @@ const HomeInput = () => {
                     pattern={REGEXP_ONLY_DIGITS}
                     {...field}
                   >
-
                     <InputOTPGroup
                       className={`flex items-center justify-center gap-2 ${isError ? styles.shake : ''}`}
                     >
@@ -120,7 +142,6 @@ const HomeInput = () => {
                           isError ? 'border-red-500 border-[3px]' : '',
                         )}
                       />
-
                     </InputOTPGroup>
                   </InputOTP>
                 </FormControl>

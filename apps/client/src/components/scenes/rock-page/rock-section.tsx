@@ -33,14 +33,11 @@ const RockSection = () => {
       try {
         const res = await fetch(`api/users/getUser?student_id=${slug}`);
         const data = await res.json();
-        if (data.data.length <= 0) {
-          console.error('Data is empty!');
-          router.push('/');
-        }
+        console.log(data.data)
         setJewelColor(data.data.house_name);
       } catch (error) {
         console.error('Error fetching data!', error);
-        throw new Error('Error fethcing data!');
+        router.push('/');
       }
     };
     fetchData();

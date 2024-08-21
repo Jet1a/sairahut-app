@@ -13,7 +13,7 @@ const MascotSection = ({ name, src, color }: MascotProps) => {
         You&apos;ve got
       </span>
       <h1
-        className={`text-center text-6xl font-bold text-white ${color} text-shadow-orange`}
+        className={`text-center text-4xl font-bold text-white ${color} text-shadow-orange`}
       >
         {name}
       </h1>

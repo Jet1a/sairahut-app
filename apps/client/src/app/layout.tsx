@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={moul.className}>
+      <body className={`${moul.className} overflow-hidden`}>
         <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
       </body>
     </html>

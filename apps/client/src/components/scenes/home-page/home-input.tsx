@@ -36,7 +36,14 @@ const HomeInput = () => {
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
-      const response = await fetch(`/api/users/getUser?student_id=${data.pin}`);
+      const response = await fetch(
+        `/api/users/getUser?student_id=${data.pin}`,
+        {
+          headers: {
+            Referer: window.location.href,
+          },
+        },
+      );
       const responseData = await response.json();
 
       if (responseData?.data?.code) {
@@ -61,7 +68,7 @@ const HomeInput = () => {
             name="pin"
             render={({ field }) => (
               <FormItem className="flex flex-col items-center justify-center gap-2">
-                <FormLabel className='text-rock'>
+                <FormLabel className="text-rock">
                   Please enter your last 3 student id digits
                 </FormLabel>
                 <FormControl>
@@ -70,7 +77,7 @@ const HomeInput = () => {
                     pattern={REGEXP_ONLY_DIGITS}
                     {...field}
                   >
-                    <InputOTPGroup className="flex items-center justify-center gap-2">
+                    <InputOTPGroup className="flex items-center justify-center gap-2 opacity-80">
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />
                       <InputOTPSlot index={2} />

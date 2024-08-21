@@ -38,7 +38,6 @@ const ClueSection = () => {
       try {
         const res = await fetch(`api/users/getUser?student_id=${slug}`);
         const data = await res.json();
-        console.log(data.data);
         setData(data.data);
       } catch (error) {
         console.error(error);

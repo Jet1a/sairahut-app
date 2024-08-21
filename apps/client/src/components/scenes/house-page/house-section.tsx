@@ -19,7 +19,6 @@ const HouseSection = () => {
         const res = await fetch(`api/users/getUser?student_id=${slug}`);
         const data = await res.json();
         setMascot(data.data.house_name);
-        console.log(mascots);
       } catch (error) {
         console.error('Error fetching data!', error);
         throw new Error('Error fethcing data!');

@@ -4,6 +4,7 @@ import HomeSection from '@/components/scenes/home-page/home-section';
 import Preloader from '@/components/scenes/preloader/preloader';
 import { Suspense, useEffect, useState } from 'react';
 
+
 const Index = () => {
   const [loading, setLoading] = useState(true);
 

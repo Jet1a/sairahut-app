@@ -37,12 +37,7 @@ const HomeInput = () => {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const response = await fetch(
-        `/api/users/getUser?student_id=${data.pin}`,
-        {
-          headers: {
-            Referer: window.location.href,
-          },
-        },
+        `/api/users/getUser?student_id=${data.pin}`
       );
       const responseData = await response.json();
 

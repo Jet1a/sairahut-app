@@ -7,7 +7,7 @@ const {
   
   const { guard } = require('../middlewares/authGuard.middleware');
   const { updateAllUserToDB } = require('../../controller/users.gsheets.controller');
-  const { login } = require('../controller/auth.controller');
+  const { login, verifyToken } = require('../controller/auth.controller');
   
   const adminRouter = require('express').Router();
   
@@ -17,6 +17,8 @@ const {
   adminRouter.put('/updateUser', guard, updateUser);
   adminRouter.delete('/deleteUser', guard, deleteUser);
   adminRouter.put('/updateUserToDB', guard, updateAllUserToDB);
+
+  adminRouter.post('/verify-token', verifyToken);
   
   module.exports = adminRouter;
   

@@ -17,6 +17,23 @@ const login = async (req, res) => {
     return res.status(201).json({ accessToken })
 }
 
+function verifyToken(req, res) {
+    const { token } = req.body;
+  
+    if (!token) {
+      return res.status(400).json({ valid: false, error: 'Token is required' });
+    }
+  
+    jwt.verify(token, JWT_SECRET, (err, user) => {
+      if (err) {
+        return res.status(403).json({ valid: false, error: 'Invalid token' });
+      }
+  
+      res.status(200).json({ valid: true, user });
+    });
+  }
+
 module.exports = {
-    login
+    login,
+    verifyToken,
 }

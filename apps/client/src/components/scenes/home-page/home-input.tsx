@@ -54,6 +54,7 @@ const HomeInput = () => {
       if (responseData?.data?.code) {
         setHasError(false);
         router.push(`/clue?Id=${data.pin}`);
+        return;
       }
 
       if (!responseData?.data) {

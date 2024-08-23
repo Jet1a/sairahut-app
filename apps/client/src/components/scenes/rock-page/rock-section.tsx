@@ -33,7 +33,6 @@ const RockSection = () => {
       try {
         const res = await fetch(`api/users/getUser?student_id=${slug}`);
         const data = await res.json();
-        console.log(data.data)
         setJewelColor(data.data.house_name);
       } catch (error) {
         console.error('Error fetching data!', error);

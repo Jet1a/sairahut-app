@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export function middleware(request: NextRequest) {
   const url = new URL(request.url);
 
-  const isPathInvalid = url.pathname === '/rock' || url.searchParams.has('Id');
+  const isPathInvalid = url.pathname === '/rock' || url.pathname === '/cule'|| url.searchParams.has('Id');
 
   // Check for /rock path and 'Id' parameter (case-sensitive)
   if (isPathInvalid && url.searchParams.has('Id')) {
